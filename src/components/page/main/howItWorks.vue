@@ -30,6 +30,7 @@ import {anim} from "../../../assets/js/libs/function_class_add_active";
 export default {
   name: "howItWorks",
   mounted() {
+    //Функция добавляющаа класс, когда блов в поле видимости у пользователя
     anim();
   }
 }

@@ -1,0 +1,234 @@
+<template lang="pug">
+section.calculator
+  .calculator__bg
+  .calculator__container
+    h2.calculator__title Калькулятор <span>дохода</span>
+    .calculator__content
+      .calculator__h2 Узнай свой доход за пару кликов
+      p.calculator__p Укажите страну и стоимость сим карты. Дальше мы всё сделаем за Вас Меняй период и наблюдай как растёт доход
+
+      form
+        p.calculator__p-green Страна
+        CustomSelect(:arrayForSelect="arrayForSelect" :classNameSelect="classNameSelect" :selectSelected="selectSelected")
+        input.input.calculator__input(placeholder="Стоимость sim-карты")
+        label.calculator__label Средняя стоимость: 24руб
+        no-ui-slider
+        button.button-g Рассчитать
+    .calculator__chart.chart
+      .chart__title Результаты
+      .chart__body
+        apexchart(type="radialBar" height="362" :options="RadialbarsChart.chartOptions" :series="RadialbarsChart.series")
+      ul.chart__list
+        li(v-for="record in chart__list")
+          .point(:style="record.color")
+          span {{record.name}}
+          span {{record.number}}
+
+
+</template>
+
+<script>
+import CustomSelect from "../../customSelect/CustomSelect.vue";
+import NoUiSlider from "../../noUiSlider/noUiSlider.vue";
+import VueApexCharts from "vue3-apexcharts";
+
+export default {
+  name: "calculator",
+  components: {
+    NoUiSlider,
+    CustomSelect,
+    apexchart: VueApexCharts,
+  },
+  data() {
+    return {
+      //Пропс class для селекта
+      classNameSelect: 'country',
+      //Пропс стран для селекта
+      arrayForSelect: [
+        {text: 'Russia', value: 'ru'},
+        {text: 'Usa', value: 'en'},
+        {text: 'canada', value: 'can'},
+      ],
+      //Selected для селекта
+      selectSelected: 'can',
+      //Подробнапя инвормация под графиком
+      chart__list:[
+        {id: 0, color: {background: "#64AF59"}, name: 'Небходимое кол-во sim-карт:', number: '100 шт'},
+        {id: 1, color: {background: "#F7C401"}, name: 'Чистая прибыть одной sim-карты: ', number: '1000 руб'},
+        {id: 2, color: {background: "#98E5FB"}, name: 'Окупаемость оборудования:', number: '10000 руб'},
+        {id: 3, color: {background: "#9265BE"}, name: 'Доход за 19 месяцев:', number: '50000 руб'},
+        {id: 4, color: {background: "#444B8C"}, name: 'Чистая прибыль за 19 месяцев: ', number: '45000 руб'},
+      ],
+      //Настройки графика. Инструкцию настроек смотри https://apexcharts.com/docs/options/#
+      RadialbarsChart: {
+        series: [90, 80, 60, 50, 45],
+        chartOptions: {
+          chart: {
+            height: 350,
+            type: 'radialBar',
+          },
+          colors: ['#444B8C','#9265BE','#98E5FB','#F7C401','#64AF59'],
+          plotOptions: {
+            radialBar: {
+              dataLabels: {
+                name: {
+                  fontSize: '22px',
+
+                },
+                value: {
+                  fontSize: '36px',
+                  color: '#64AF59',
+                  fontWeight: 500,
+                  offsetY: 30,
+                },
+                total: {
+                  show: true,
+                  label: 'Ваша выгода',
+                  color: '#fff',
+                  fontSize: '16px',
+                  fontFamily: '"Montserrat", sans-serif',
+                  fontWeight: 500,
+                  formatter: function (w) {
+                    // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
+                    return 249 + '%'
+                  }
+                }
+              }
+            }
+          },
+          labels: ['Ч.П. 19 М', 'Д 19 М', 'О.О', 'Ч.П. 1 Sim', 'Н.К. Sim'],
+        },
+      },
+    }
+  },
+
+  methods:{}
+}
+</script>
+
+<style  lang="scss">
+@import '../../../assets/scss/style.scss';
+
+.calculator {
+  @include adaptiveValue(margin-top, 50, 30);
+  @include adaptiveValue(padding-top, 15, 100);
+  @include adaptiveValue(padding-bottom, 165, 50);
+  @include adaptiveValue(margin-bottom, 65, 30);
+  position: relative;
+  background: url("../../../assets/img/svg/bg-chart-spa-none.svg") no-repeat center / cover;
+
+  @include maq('tablet') {
+    background: url("../../../assets/img/svg/bg-chart.svg") no-repeat center / cover;
+  }
+  &__container {
+    display: grid;
+    grid-gap: rem(100);
+
+    @include mq('tablet') {
+      grid-template-columns: 1fr 1fr;
+      grid-gap: rem(60);
+      //align-items: center;
+    }
+    @include mq('desktop') {
+      grid-gap: rem(160);
+    }
+  }
+
+  &__title {
+    @include mq('tablet') {
+      grid-column: span 2;
+    }
+  }
+
+  &__content {
+    color: $color_1;
+  }
+
+  &__h2 {
+    @include adaptiveValue(font-size, 20, 18);
+    @include adaptiveValue(margin-bottom, 20, 18);
+    font-weight: 700;
+  }
+
+  &__p {
+    margin-bottom: rem(44);
+  }
+
+  &__p-green {
+    color: $color_4;
+    font-weight: 600;
+    @include adaptiveValue(font-size, 14, 14);
+    margin-bottom: rem(10);
+  }
+
+  &__input{
+    width: 100%;
+    margin-top: rem(20);
+    &::placeholder{
+      color: #989898;
+    }
+  }
+
+  &__label{
+    font-size: rem(14);
+    font-style: italic;
+    color: #989898;
+  }
+
+  .body-range{
+    margin-top: rem(20);
+  }
+
+  .range__text{
+    margin-right: rem(10);
+    color: $color_4;
+    font-weight: 600;
+  }
+
+  .range{
+    margin-top: rem(30);
+  }
+
+  .chart__title{
+    color: $color_4;
+    @include adaptiveValue(font-size, 20, 20);
+    font-weight: 700;
+    margin-bottom: rem(44);
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .chart__list{
+    display: grid;
+    grid-gap: rem(20);
+    li{
+      display: grid;
+      grid-gap: rem(10);
+      grid-template-columns: 15px 2fr 1fr;
+      align-items: center;
+    }
+    .point{
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+    }
+    span{
+      color: $color_1;
+      &:last-child{
+        margin-left: auto;
+      }
+    }
+
+  }
+
+  .apexcharts-datalabels-group{
+    height: 100px !important;
+    position: relative;
+    display: block;
+
+    #SvgjsText2020{
+      y: 130;
+    }
+  }
+}
+</style>

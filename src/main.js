@@ -3,6 +3,7 @@ import App from './App.vue'
 import './assets/scss/style.scss'
 
 
+
 //js
 
 import * as flsFunctions from "./assets/js/files/functions.js";

@@ -1,32 +1,35 @@
 <template lang="pug">
-select(:class="classNameSelect")
-  option(v-for="option in selectLanguage" :data-asset="option.img") {{option.text }}
-
-
+select(:class="classNameSelect" ref='classNameSelect' v-model="selected")
+  option( v-for="element in arrayForSelect" :data-asset="element.img" :key="element.value" :value="element.value") {{element.text}}
 </template>
 
 <script>
-import {isMobile, _slideUp, _slideDown, _slideToggle} from "../../assets/js/files/functions.js";
 import {SelectConstructor} from "../../assets/js/libs/select.js";
-import {formsModules} from "../../assets/js/files/forms/forms.js";
 
 export default {
   name: "CustomSelect",
   props:{
-    selectLanguage: {
+    arrayForSelect: {
       type: Array,
       required: true,
     },
-    classNameSelect:{}
+    classNameSelect:{},
+    selectSelected: {}
   },
+
   data() {
     return {
-      selectCustom: '',
+      selectCustom : '',
+      selected: this.selectSelected,
     }
   },
-  computed: {},
+  computed: {
+
+  },
+  methods:{  },
   mounted() {
-    this.selectCustom = new SelectConstructor;
+      this.selectCustom = new SelectConstructor;
+      this.selectCustom.selectsInit(this.$refs.classNameSelect);
   }
 }
 </script>

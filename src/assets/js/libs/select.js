@@ -76,13 +76,14 @@ export class SelectConstructor {
 		// Запуск инициализации
 		if (this.config.init) {
 			// Получение всех select на странице
-			const selectItems = data ? document.querySelectorAll(data) : document.querySelectorAll('select');
-			if (selectItems.length) {
-				this.selectsInit(selectItems);
-				this.setLogging(`Проснулся, построил селектов: (${selectItems.length})`);
-			} else {
-				this.setLogging('Нет ни одного select. Сплю...zzZZZzZZz...');
-			}
+			// const selectItems = data ? document.querySelectorAll(data) : document.querySelectorAll('select');
+			// console.log(selectItems)
+			// if (selectItems.length) {
+			// 	this.selectsInit(selectItems);
+			// 	this.setLogging(`Проснулся, построил селектов: (${selectItems.length})`);
+			// } else {
+			// 	this.setLogging('Нет ни одного select. Сплю...zzZZZzZZz...');
+			// }
 		}
 	}
 	// Конструктор CSS класса
@@ -97,10 +98,11 @@ export class SelectConstructor {
 		}
 	}
 	// Функция инициализации всех селектов
-	selectsInit(selectItems) {
-		selectItems.forEach((originalSelect, index) => {
-			this.selectInit(originalSelect, index + 1);
-		});
+	selectsInit(originalSelect) {
+		// selectItems.forEach((originalSelect, index) => {
+		// 	this.selectInit(originalSelect, index + 1);
+		// });
+		this.selectInit(originalSelect);
 		// Обработчики событий...
 		// ...при клике
 		document.addEventListener('click', function (e) {
@@ -309,6 +311,7 @@ export class SelectConstructor {
 			// Если единичный выбор
 			selectedOptions.push(originalSelect.options[originalSelect.selectedIndex]);
 		}
+
 		return {
 			elements: selectedOptions.map(option => option),
 			values: selectedOptions.filter(option => option.value).map(option => option.value),
@@ -368,12 +371,12 @@ export class SelectConstructor {
 		if (originalSelect.multiple) { // Если мультивыбор
 			// Выделяем классом элемент
 			optionItem.classList.toggle(this.selectClasses.classSelectOptionSelected);
-			// Очищаем выбранные элементы 
+			// Очищаем выбранные элементы
 			const originalSelectSelectedItems = this.getSelectedOptionsData(originalSelect).elements;
 			originalSelectSelectedItems.forEach(originalSelectSelectedItem => {
 				originalSelectSelectedItem.removeAttribute('selected');
 			});
-			// Выбираем элементы 
+			// Выбираем элементы
 			const selectSelectedItems = selectItem.querySelectorAll(this.getSelectClass(this.selectClasses.classSelectOptionSelected));
 			selectSelectedItems.forEach(selectSelectedItems => {
 				originalSelect.querySelector(`option[value="${selectSelectedItems.dataset.value}"]`).setAttribute('selected', 'selected');

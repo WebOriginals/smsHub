@@ -28,7 +28,7 @@ import {DynamicAdapt} from "../../../assets/js/libs/dynamic_adapt.js";
 export default {
   name: "First",
   mounted() {
-    //перемещение блоков при разных разрешениях см assets/js/libs/dynamic_adapt.js
+    //Перемещение блоков при разных разрешениях см assets/js/libs/dynamic_adapt.js
     this.da = new DynamicAdapt("max");
     this.da.init();
   }

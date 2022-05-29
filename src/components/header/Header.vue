@@ -19,7 +19,7 @@ header.header
           a.menu__link(href="#") Вопрос/Ответ
 
     .header__language(data-da=".header__menu,992,2")
-      CustomSelect(:selectLanguage="selectLanguage" :classNameSelect="classNameSelect")
+      CustomSelect(:arrayForSelect="arrayForSelect" :classNameSelect="classNameSelect" :selectSelected="selectSelected")
     .menu__icon(@click="showMenuOnMobile" ref="menu__icon")
       span
 </template>
@@ -36,19 +36,25 @@ export default {
   },
   data(){
     return {
+      //Пропс class для селекта
       classNameSelect: 'language',
-      selectLanguage: [
-        {text: 'Russia', img: "../../src/assets/img/png/russia.png"},
-        {text: 'Usa', img: "../../src/assets/img/png/united-states.png"},
+      //Пропс языков для селекта
+      arrayForSelect: [
+        {text: 'Russia', img: "../../src/assets/img/png/russia.png", value: 'ru'},
+        {text: 'Usa', img: "../../src/assets/img/png/united-states.png", value: 'en'},
       ],
+      //Selected для селекта
+      selectSelected: 'ru',
+      //
       da: '',
     }
   },
   methods: {
+    //Работа с бургером на мобиле
     showMenuOnMobile(){
       let iconMenu = this.$refs.menu__icon;
       let bodyMenu = this.$refs.menu__body;
-      let listLinks = this.$refs.menu__links;
+
       if(bodyLockStatus){
         bodyLockToggle();
         iconMenu.classList.toggle('_active');

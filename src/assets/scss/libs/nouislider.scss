@@ -91,10 +91,10 @@
 	height: 18px;
 }
 .noUi-horizontal .noUi-handle {
-	width: 23px;
-	height: 23px;
-	right: -11.5px;
-	top: -10px;
+	width: 15px;
+	height: 15px;
+	right: -2.5px;
+	top: -7px;
 }
 .noUi-vertical {
 	width: 18px;
@@ -113,21 +113,22 @@
  * Giving the connect element a border radius causes issues with using transform: scale
  */
 .noUi-target {
-	height: 4px;
-	background-color: #eaeaea;
+	height: 3px;
+	background-color: #F5F5F5;
 	margin: 0px 11px 50px;
 	position: relative;
 	&::before,
 	&::after {
 		content: "";
-		background-color: #eaeaea;
+		background-color: #F5F5F5;
 		width: 11px;
-		height: 4px;
+		height: 3px;
 		position: absolute;
 		top: 0;
 	}
 	&::before {
 		left: -10px;
+		background-color: $color_4;
 	}
 	&::after {
 		right: -10px;
@@ -136,7 +137,7 @@
 .noUi-connects {
 }
 .noUi-connect {
-	background-color: $color_3;
+	background-color: $color_4;
 }
 /* Handles and cursors;
  */
@@ -160,7 +161,7 @@
 /* Disabled state;
  */
 [disabled] .noUi-connect {
-	background: #b8b8b8;
+	background: $color_3;
 }
 [disabled].noUi-target,
 [disabled].noUi-handle,

@@ -243,3 +243,45 @@
 }
 
 
+//country
+.select_country{
+
+  .select__value{
+    flex-direction: row;
+    height: 56px;
+
+    &:after{
+      border: 7px solid transparent; /* Прозрачные границы */
+      border-top: 7px solid $mainColor;
+      background-color: transparent;
+    }
+    &:before{
+      background-color: transparent;
+    }
+    &::before {
+      transform: none;
+    }
+
+    &::after {
+      transform: translate(-25%, -17%) rotate(0deg);
+    }
+
+    ._select-open & {
+
+      &::after {
+        transform: rotate(180deg)!important;
+
+      }
+    }
+
+    .select__content{
+      color: $mainColor;
+      font-weight: 600;
+    }
+  }
+  .select__options {
+    top: 56px;
+  }
+
+}
+
