@@ -134,7 +134,13 @@ p{
   }
 }
 
+.vs--open.mainForm-select{
 
+  #vs1__listbox{
+      display: block !important;
+      z-index: 50 !important;
+  }
+}
 
 // стили заголовков, кнопок, списков
 @import "_configuration/originStyle";
@@ -176,6 +182,6 @@ p{
 //споллеры
 @import "_ui/spoller";
 //табы
-@import "_ui/tabs";
+//@import "_ui/tabs";
 //описание товаров
 //@import "_ui/tippy";

@@ -19,43 +19,54 @@ header.header
           a.menu__link(href="#") Вопрос/Ответ
 
     .header__language(data-da=".header__menu,992,2")
-      CustomSelect(:arrayForSelect="arrayForSelect" :classNameSelect="classNameSelect" :selectSelected="selectSelected")
+      v-select.leng(v-model="selected" :options="arrayForSelect" label="text")
+        template(#selected-option="{ img, text }")
+          div(style="display: flex; align-items: center; gap: 15px")
+            img(:src="img" style="max-width:38px")
+            span(style="color:#fff")  {{ text }}
+        template(#option="{ img, text }" )
+          .oprion-row(style="display: flex; align-items: center; gap: 15px")
+            img(:src="img" style="max-width:38px")
+            span  {{ text }}
+
     .menu__icon(@click="showMenuOnMobile" ref="menu__icon")
       span
 </template>
 
 <script>
-import CustomSelect from "../customSelect/CustomSelect.vue";
 import {bodyLockStatus, bodyLockToggle} from "../../assets/js/files/functions.js";
 import {DynamicAdapt} from "../../assets/js/libs/dynamic_adapt.js";
+import vSelect from 'vue-select';
+
+const Select = [
+  {text: 'Russia', img: "../../src/assets/img/png/russia.png", value: 'ru'},
+  {text: 'Usa', img: "../../src/assets/img/png/united-states.png", value: 'en'},
+];
 
 export default {
   name: "Header",
   components: {
-    CustomSelect
+    vSelect
   },
-  data(){
+  data() {
     return {
       //Пропс class для селекта
       classNameSelect: 'language',
       //Пропс языков для селекта
-      arrayForSelect: [
-        {text: 'Russia', img: "../../src/assets/img/png/russia.png", value: 'ru'},
-        {text: 'Usa', img: "../../src/assets/img/png/united-states.png", value: 'en'},
-      ],
+      arrayForSelect: Select,
       //Selected для селекта
-      selectSelected: 'ru',
+      selected: Select[0],
       //
       da: '',
     }
   },
   methods: {
     //Работа с бургером на мобиле
-    showMenuOnMobile(){
+    showMenuOnMobile() {
       let iconMenu = this.$refs.menu__icon;
       let bodyMenu = this.$refs.menu__body;
 
-      if(bodyLockStatus){
+      if (bodyLockStatus) {
         bodyLockToggle();
         iconMenu.classList.toggle('_active');
         bodyMenu.classList.toggle('_active');
@@ -70,6 +81,31 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+.leng {
+  min-width: 180px;
+  min-height: 50px;
 
+
+  .vs__dropdown-toggle {
+    height: 100%;
+    border: none;
+  }
+
+  .vs__open-indicator {
+    path {
+      fill: #fff
+    }
+  }
+
+  .vs__dropdown-menu {
+    top: 50px;
+  }
+}
+
+.vs__open .vs__dropdown-toggle {
+  background-color: #fff;
+  height: 100%;
+  opacity: 1;
+}
 </style>

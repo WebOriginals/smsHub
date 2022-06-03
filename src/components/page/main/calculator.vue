@@ -1,6 +1,5 @@
 <template lang="pug">
 section.calculator
-  .calculator__bg
   .calculator__container
     h2.calculator__title Калькулятор <span>дохода</span>
     .calculator__content
@@ -111,7 +110,7 @@ export default {
 
 .calculator {
   @include adaptiveValue(margin-top, 50, 30);
-  @include adaptiveValue(padding-top, 15, 100);
+  @include adaptiveValue(padding-top, 50, 150);
   @include adaptiveValue(padding-bottom, 165, 50);
   @include adaptiveValue(margin-bottom, 65, 30);
   position: relative;
@@ -137,6 +136,7 @@ export default {
   &__title {
     @include mq('tablet') {
       grid-column: span 2;
+      transform: translateY(-50px);
     }
   }
 

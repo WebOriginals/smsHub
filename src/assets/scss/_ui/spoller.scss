@@ -52,14 +52,14 @@
       transform: translate(0, -50%) rotate(-40deg);
     }
     &._spoller-active {
-      color: $color_6;
+      color: $color_4;
       &::before {
         transform: translateX(-75%) rotate(-40deg);
-        background-color: $color_6;
+        background-color: $color_4;
       }
       &::after {
         transform: rotate(40deg);
-        background-color: $color_6;
+        background-color: $color_4;
       }
     }
   }

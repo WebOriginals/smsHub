@@ -1,7 +1,7 @@
 <template lang="pug">
 section.howItWorks
   .howItWorks__container
-    .howItWorks__content._anim-items
+    .howItWorks__content._anim-items._anim-no-hide
       h2.howItWorks__title  Как <span>это работает</span>?
       p.howItWorks__description Каждый раз, когда пользователи со всего мира ежедневно принимают коды для регистрации
         | на миллионах сервисах от “Пятерочки” и “Nike” до “Facebook” и “Telegram” через ваши SIM-карты
@@ -12,7 +12,7 @@ section.howItWorks
       .howItWorks__point
       .howItWorks__point
       .howItWorks__point
-    ol.howItWorks__list._anim-items
+    ol.howItWorks__list._anim-items._anim-no-hide
       li
         h6.howItWorks__list-title Оставьте заявку и подключите оборудование
         p Менеджер проконсультирует по всем интересующим вопросам, подскажет где купить и полностью настроит обородувание
@@ -60,7 +60,7 @@ export default {
   &__content {
     position: relative;
 
-    @include mq('tablet-wide') {
+    @include mq('desktop') {
       &:after{
         content: '';
         top: -200px;
@@ -87,7 +87,7 @@ export default {
     @include maq('tablet-wide') {
       margin-bottom: rem(64);
     }
-    @include mq('tablet-wide') {
+    @include mq('desktop') {
       &._active {
         .howItWorks__point {
           &:nth-child(3) {
@@ -148,7 +148,7 @@ export default {
     }
   }
   &__point{
-    @include mq('tablet-wide') {
+    @include mq('desktop') {
     width: rem(23);
     height: rem(23);
     border:4px solid $mainColor;
@@ -197,13 +197,13 @@ export default {
         }
       }
 
-      @include mq('tablet-wide') {
+      @include mq('desktop') {
         &:nth-child(2){
           margin-left: 100px;
         }
       }
     }
-    @include mq('tablet-wide') {
+    @include mq('desktop') {
       &._active {
         li{
           &:nth-child(1){
@@ -223,7 +223,7 @@ export default {
     }
   }
   &__list-title {
-    @include maq('tablet-wide') {
+    @include maq('desktop') {
       padding-left: rem(45);
     }
     margin-bottom: rem(15);
@@ -274,11 +274,11 @@ export default {
     to {
       opacity: 1;
     }
-  }@keyframes connectionText {
+  }
+  @keyframes connectionText {
     to {
       opacity: 1;
     }
   }
-
 }
 </style>

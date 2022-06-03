@@ -328,6 +328,7 @@ export function spollers() {
 Например: data-tabs="992" - табы будут превращаться в спойлеры на экранах меньше или равно 992px
 */
 export function tabs() {
+
 	const tabs = document.querySelectorAll('[data-tabs]');
 	let tabsActiveHash = [];
 
