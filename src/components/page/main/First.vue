@@ -6,7 +6,7 @@ section.first
       p Ваши номера будут продаваться на самом крупном сервисе смс активаций, что позволит получать <span>прибыль до 75% с первых минут после полного подключения.</span>
       .first__btns
         button.button-e.popup-link(data-popup="#Application") оставь заявку
-        button.button-w Рассчитать прибыль
+        a.button-w(href="#calculator") Рассчитать прибыль
     .first__greenLine
       img(src="../../../assets/img/png/first.png")
     .first__soc(data-da=".header__menu,992,last")
