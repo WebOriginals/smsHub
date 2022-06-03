@@ -1,7 +1,7 @@
 <template lang="pug">
 .body-range
   span.range__text Период работы:
-  span#numericSliderResult
+  span#numericSliderResult(ref='SliderResult')
   #range.range(ref='range')
 
 
@@ -25,13 +25,15 @@ export default {
   },
   computed: {},
   methods: {
-
+    updateSlider: function updateSlider() {
+      this.$refs.range.noUiSlider.set([this.minRange, this.maxRange]);
+    }
   },
   mounted() {
-    let stepSlider = document.getElementById('range');
+
     let stepSliderValueElement = document.getElementById('numericSliderResult');
 
-    noUiSlider.create(stepSlider, {
+    noUiSlider.create(this.$refs.range, {
       start: this.dataSlider.start,
       step: this.dataSlider.step,
       behaviour: 'lower',
@@ -42,7 +44,10 @@ export default {
       }
     });
 
-    stepSlider.noUiSlider.on('update', function (values, handle) {
+    this.$refs.range.noUiSlider.on('update', function (values, handle) {
+      this.numericSliderResult = Math.round(values[handle]);
+      console.log(this.numericSliderResult);
+      //console.log(Math.round(values[handle]));
       stepSliderValueElement.innerHTML = Math.round(values[handle]);
     });
   }
