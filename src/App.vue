@@ -8,8 +8,12 @@ import ChartMap from "./components/page/main/ChartMap.vue";
 import mainForm from "./components/page/main/mainForm.vue";
 import ask from "./components/page/main/ask.vue";
 import Footer from "./components/footer/footer.vue";
+import Thanks from "./components/popups/Thanks.vue";
+import Application from "./components/popups/Application.vue";
 export default {
   components: {
+    Application,
+    Thanks,
     Footer,
     ask,
     mainForm,
@@ -36,6 +40,8 @@ export default {
       <ask></ask>
     </main>
     <Footer></Footer>
+    <Thanks></Thanks>
+    <Application></Application>
   </div>
 </template>
 

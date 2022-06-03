@@ -19,15 +19,15 @@ header.header
           a.menu__link(href="#") Вопрос/Ответ
 
     .header__language(data-da=".header__menu,992,2")
-      v-select.leng(v-model="selected" :options="arrayForSelect" label="text")
+      v-select.leng(v-model="selected" :options="arrayForSelect" label="text" :searchable="false")
         template(#selected-option="{ img, text }")
-          div(style="display: flex; align-items: center; gap: 15px")
+          .leng-title
             img(:src="img" style="max-width:38px")
             span(style="color:#fff")  {{ text }}
         template(#option="{ img, text }" )
           .oprion-row(style="display: flex; align-items: center; gap: 15px")
             img(:src="img" style="max-width:38px")
-            span  {{ text }}
+
 
     .menu__icon(@click="showMenuOnMobile" ref="menu__icon")
       span
@@ -82,10 +82,35 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../assets/scss/style.scss';
+
 .leng {
   min-width: 180px;
   min-height: 50px;
+  @include mq('tablet') {
+    min-width: 100px;
+  }
+  @include mq('tablet') {
+    max-width: fit-content;
+  }
+  .vs__search{
+    display: none;
+  }
 
+  &-title{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    @include maq('tablet') {
+      flex-direction: row-reverse;
+    }
+    @include mq('tablet') {
+      span{
+        display: none;
+      }
+    }
+  }
 
   .vs__dropdown-toggle {
     height: 100%;
@@ -100,6 +125,10 @@ export default {
 
   .vs__dropdown-menu {
     top: 50px;
+    @include mq('tablet') {
+      max-width: 100px;
+      min-width: 10px;
+    }
   }
 }
 

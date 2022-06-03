@@ -56,7 +56,6 @@ export default {
         layout: root.horizontalLayout
       }));
 
-
       let polygonSeries = chart.series.push(
           am5map.MapPolygonSeries.new(root, {
             geoJSON: am5geodata_worldLow,
@@ -66,14 +65,16 @@ export default {
       );
 
       polygonSeries.mapPolygons.template.setAll({
-        tooltipText: "{name}: {value}"
+        tooltipText: "{name}: {value}",
+        stroke: am5.color(0xffffff),
+        fill: am5.color(0xd4d4d4),
       });
 
       polygonSeries.set("heatRules", [{
         target: polygonSeries.mapPolygons.template,
         dataField: "value",
-        min: am5.color(12895428),
-        max: am5.color(6598489),
+        min: am5.color(0xD8EAD6),
+        max: am5.color(0x64AF59),
         key: "fill"
       }]);
 
@@ -98,8 +99,8 @@ export default {
 
       let heatLegend = chart.children.push(am5.HeatLegend.new(root, {
         orientation: "vertical",
-        startColor: am5.color(12895428),
-        endColor: am5.color(6598489),
+        startColor: am5.color(0xD8EAD6),
+        endColor: am5.color(0x64AF59),
         startText: "Lowest",
         endText: "Highest",
         stepCount: 5

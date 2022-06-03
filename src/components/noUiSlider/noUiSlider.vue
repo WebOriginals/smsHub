@@ -31,8 +31,6 @@ export default {
     let stepSlider = document.getElementById('range');
     let stepSliderValueElement = document.getElementById('numericSliderResult');
 
-
-
     noUiSlider.create(stepSlider, {
       start: this.dataSlider.start,
       step: this.dataSlider.step,
@@ -44,7 +42,6 @@ export default {
       }
     });
 
-
     stepSlider.noUiSlider.on('update', function (values, handle) {
       stepSliderValueElement.innerHTML = Math.round(values[handle]);
     });
@@ -53,8 +50,8 @@ export default {
 </script>
 
 <style scoped lang="scss">
-//@import '../../../node_modules/nouislider/dist/nouislider.css';
-@import '../../assets/scss/style.scss';
-//@import "../../assets/scss/libs/nouislider.scss";
+
+
+
 
 </style>

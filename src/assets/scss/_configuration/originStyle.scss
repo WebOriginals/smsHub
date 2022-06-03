@@ -62,7 +62,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px;
+  height: 38px;
   cursor: pointer;
   transition: .5s;
   @include adaptiveValue(font-size,16, 14);
@@ -90,7 +90,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 36px;
+  height: 38px;
   cursor: pointer;
   transition: .5s;
   @include adaptiveValue(font-size,16, 14);
@@ -146,6 +146,9 @@
   }
 }
 
+.button-height{
+  height: 50px;
+}
 
 
 //Стилизация input
@@ -157,7 +160,7 @@
   border-radius: 5px;
   padding: em(16) em(20);
   height: 56px;
-
+  width: 100%;
   &::placeholder{
     font-size: rem(16);
   }

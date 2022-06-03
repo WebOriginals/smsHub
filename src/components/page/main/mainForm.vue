@@ -8,16 +8,16 @@ section.mainForm
     form
       .mainForm__call
         label(for="name") Ваше имя
-        input.input#name(placeholder="Иван")
+        input.input#name(placeholder="Иван" v-model="name")
       .mainForm__call
         label(for="email") Ваш e-mail*
-        input.input#email(placeholder="Name@mail.ru")
+        input.input#email(placeholder="Name@mail.ru" v-model="email")
       .mainForm__call
         label(for="telegram") Телеграм*
-        input.input#telegram(placeholder="Номер или @юзернейм")
+        input.input#telegram(placeholder="Номер или @юзернейм" v-model="telegram")
       .mainForm__call
         label(for="country") Страны использования sim-карт
-        input.input#country(placeholder="Росиия, Англия, Германия...")
+        input.input#country(placeholder="Росиия, Англия, Германия..." v-model="country")
       .mainForm__call
         label Какое у вас оборудование?
         v-select.form-select(v-model="selectedEquipment" :options="equipment" label="text" )
@@ -25,7 +25,7 @@ section.mainForm
         label Количество портов
         v-select.form-select(v-model="selectedPort" :options="Port" label="text" )
 
-      button.button-e отправить заявку
+      button.button-e.button-height отправить заявку
 
 
 </template>
@@ -59,7 +59,10 @@ export default {
       Port: SelectPort,
       //Selected для селекта
       selectedPort: SelectPort[0],
-
+      name: "",
+      email: "",
+      telegram: "",
+      country: "",
     }
   }
 }
@@ -74,11 +77,12 @@ export default {
   @include adaptiveValue(padding-bottom, 165, 60);
   color: $color_1;
   position: relative;
-  background: url("../../../assets/img/svg/bg-form-spa-none.svg") no-repeat center;
+  background: url("../../../assets/img/svg/bg-form-spa-none.svg") no-repeat;
+  background-position: center right;
   background-size: cover;
 
   @include maq('tablet') {
-    background: url("../../../assets/img/svg/bg-form.svg") no-repeat center ;
+    background: url("../../../assets/img/svg/bg-form.svg") no-repeat center;
     background-size: cover;
   }
 
@@ -127,10 +131,10 @@ export default {
 
     .vs__dropdown-toggle {
       height: 56px;
-      padding: em(14) em(20);
+      padding: em(10) em(20);
     }
     .vs__selected{
-      font-size: rem(16);
+      font-size: rem(18);
     }
     .vs__clear,
     .vs__open-indicator {

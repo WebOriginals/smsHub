@@ -8,8 +8,8 @@ section.calculator
 
       form
         p.calculator__p-green Страна
-        CustomSelect(:arrayForSelect="arrayForSelect" :classNameSelect="classNameSelect" :selectSelected="selectSelected")
-        input.input.calculator__input(placeholder="Стоимость sim-карты")
+        v-select.selectCountry(v-model="selected" :options="arrayForSelect" label="text" )
+        input.input.calculator__input(placeholder="Стоимость sim-карты" type="number" v-model="simPrice")
         label.calculator__label Средняя стоимость: 24руб
         no-ui-slider
         button.button-g Рассчитать
@@ -27,15 +27,21 @@ section.calculator
 </template>
 
 <script>
-import CustomSelect from "../../customSelect/CustomSelect.vue";
 import NoUiSlider from "../../noUiSlider/noUiSlider.vue";
 import VueApexCharts from "vue3-apexcharts";
+import vSelect from 'vue-select';
+
+const Select = [
+  {text: 'Russia', value: 'ru'},
+  {text: 'Usa', value: 'en'},
+  {text: 'canada', value: 'can'},
+];
 
 export default {
   name: "calculator",
   components: {
+    vSelect,
     NoUiSlider,
-    CustomSelect,
     apexchart: VueApexCharts,
   },
   data() {
@@ -43,13 +49,9 @@ export default {
       //Пропс class для селекта
       classNameSelect: 'country',
       //Пропс стран для селекта
-      arrayForSelect: [
-        {text: 'Russia', value: 'ru'},
-        {text: 'Usa', value: 'en'},
-        {text: 'canada', value: 'can'},
-      ],
+      arrayForSelect: Select,
       //Selected для селекта
-      selectSelected: 'can',
+      selected: Select[1],
       //Подробнапя инвормация под графиком
       chart__list:[
         {id: 0, color: {background: "#64AF59"}, name: 'Небходимое кол-во sim-карт:', number: '100 шт'},
@@ -98,6 +100,7 @@ export default {
           labels: ['Ч.П. 19 М', 'Д 19 М', 'О.О', 'Ч.П. 1 Sim', 'Н.К. Sim'],
         },
       },
+      simPrice: "",
     }
   },
 
@@ -114,10 +117,10 @@ export default {
   @include adaptiveValue(padding-bottom, 165, 50);
   @include adaptiveValue(margin-bottom, 65, 30);
   position: relative;
-  background: url("../../../assets/img/svg/bg-chart-spa-none.svg") no-repeat center / cover;
+  background: url("../../../assets/img/svg/bg-chart2-spa-none.svg") no-repeat center / cover;
 
   @include maq('tablet') {
-    background: url("../../../assets/img/svg/bg-chart.svg") no-repeat center / cover;
+    background: url("../../../assets/img/svg/bg-chart2.svg") no-repeat center / cover;
   }
   &__container {
     display: grid;
@@ -228,6 +231,31 @@ export default {
 
     #SvgjsText2020{
       y: 130;
+    }
+  }
+
+  .selectCountry .vs__search::placeholder,
+  .selectCountry .vs__dropdown-toggle,
+  .selectCountry .vs__dropdown-menu {
+    background: $color_1;
+    border: none;
+    color: #394066;
+    text-transform: lowercase;
+    font-variant: small-caps;
+  }
+
+  .selectCountry .vs__clear,
+  .selectCountry .vs__open-indicator {
+    fill: #394066;
+  }
+  .selectCountry {
+    .vs__dropdown-toggle {
+      height: rem(56);
+    }
+    .vs__selected{
+      padding-left: rem(20);
+      font-size: 18px;
+      font-weight: 700;
     }
   }
 }

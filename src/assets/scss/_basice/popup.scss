@@ -121,3 +121,118 @@ body.popup-show::after {
   }
 }
 
+.Application{
+
+  .popup__close{
+    outline: none;
+  }
+
+  &-content{
+    background-color: $color_1;
+    max-width: rem(410);
+    border: 1px solid $color_4;
+  }
+
+  &-body{
+    display: grid;
+    grid-gap: rem(12);
+    justify-items: center;
+
+    &__title{
+      color: $color_4;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    &__description{
+      font-style: italic;
+      text-align: center;
+    }
+  }
+
+  &-form{
+    display: grid;
+    grid-gap: rem(16);
+    margin-top: rem(15);
+    .input{
+      &::placeholder{
+        font-size: 14px;
+      }
+    }
+    .radio{
+      display: flex;
+      gap: rem(10);
+      align-items: center;
+
+      input[type=radio] {
+        display: none;
+      }
+      label {
+        display: inline-block;
+        cursor: pointer;
+        position: relative;
+        padding-left: 25px;
+        margin-right: 0;
+        line-height: 18px;
+        user-select: none;
+
+        &:before {
+          content: "";
+          display: inline-block;
+          width: 16px;
+          height: 16px;
+          position: absolute;
+          border: 1px solid $color_3;
+          border-radius: 50%;
+          left: 0;
+          bottom: 1px;
+        }
+      }
+      input[type=radio]:checked + label {
+        &:before {
+          border: 1px solid $color_4;
+        }
+        &:after{
+          content: "";
+          display: inline-block;
+          width: 8px;
+          height: 8px;
+          position: absolute;
+          background-color: $color_4;
+          border-radius: 50%;
+          left: 4px;
+          bottom: 5px;
+        }
+      }
+    }
+    button{
+      margin-top: rem(26);
+    }
+  }
+}
+
+.Thanks{
+
+  .popup__close{
+    outline: none;
+  }
+  &-content{
+    background-color: $color_1;
+    max-width: rem(410);
+    border: 1px solid $color_4;
+  }
+  &-body{
+    display: grid;
+    grid-gap: rem(12);
+    justify-items: center;
+
+    &__title{
+      color: $color_4;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    &__description{
+      font-style: italic;
+      text-align: center;
+    }
+  }
+}

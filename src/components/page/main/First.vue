@@ -5,7 +5,7 @@ section.first
       h1 <span>ЗАРАБАТЫВАЙ </span> НА СИМ-КАРТАХ
       p Ваши номера будут продаваться на самом крупном сервисе смс активаций, что позволит получать <span>прибыль до 75% с первых минут после полного подключения.</span>
       .first__btns
-        button.button-e оставь заявку
+        button.button-e.popup-link(data-popup="#Application") оставь заявку
         button.button-w Рассчитать прибыль
     .first__greenLine
       img(src="../../../assets/img/png/first.png")
@@ -24,6 +24,7 @@ section.first
 
 <script>
 import {DynamicAdapt} from "../../../assets/js/libs/dynamic_adapt.js";
+import {gotoBlock} from '../../../assets/js/files/scroll/gotoblock.js';
 
 export default {
   name: "First",
@@ -31,6 +32,7 @@ export default {
     //Перемещение блоков при разных разрешениях см assets/js/libs/dynamic_adapt.js
     this.da = new DynamicAdapt("max");
     this.da.init();
+    gotoBlock();
   }
 }
 </script>
