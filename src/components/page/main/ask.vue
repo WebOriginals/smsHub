@@ -1,5 +1,5 @@
 <template lang="pug">
-section.ask
+section.ask#ask
   .ask__container
     h2.ask__title Часто задаваемые <span>вопросы</span>
     .spollers(data-spollers data-one-spoller)

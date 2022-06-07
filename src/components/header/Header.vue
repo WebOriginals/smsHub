@@ -12,11 +12,11 @@ header.header
     nav.header__menu.menu__body(ref="menu__body")
       ul(ref="menu__links")
         li
-          a.menu__link(href="#") Калькулятор дохода
+          a.menu__link(href="#" data-goto="calculator") Калькулятор дохода
         li
-          a.menu__link(href="#") Стать партнёром
+          a.menu__link(href="#" data-goto="mainForm") Стать партнёром
         li
-          a.menu__link(href="#") Вопрос/Ответ
+          a.menu__link(href="#" data-goto="ask") Вопрос/Ответ
 
     .header__language(data-da=".header__menu,992,2")
       v-select.leng(v-model="selected" :options="arrayForSelect" label="text" :searchable="false")
@@ -37,6 +37,7 @@ header.header
 import {bodyLockStatus, bodyLockToggle} from "../../assets/js/files/functions.js";
 import {DynamicAdapt} from "../../assets/js/libs/dynamic_adapt.js";
 import vSelect from 'vue-select';
+import {pageNavigation} from "../../assets/js/files/scroll/scroll.js";
 
 const Select = [
   {text: 'Russia', img: "../../src/assets/img/png/russia.png", value: 'ru'},
@@ -77,6 +78,7 @@ export default {
     //перемещение блоков при разных разрешениях см assets/js/libs/dynamic_adapt.js
     this.da = new DynamicAdapt("max");
     this.da.init();
+    pageNavigation();
   }
 }
 </script>
