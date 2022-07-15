@@ -71,7 +71,7 @@ export default {
 <style lang="scss">
 @import '../../../assets/scss/style.scss';
 
-.mainForm {
+.lending .mainForm {
   @include adaptiveValue(margin-bottom, 65, 30);
   @include adaptiveValue(padding-top, 250, 250);
   @include adaptiveValue(padding-bottom, 165, 60);

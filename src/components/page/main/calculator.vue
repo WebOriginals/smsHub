@@ -111,7 +111,7 @@ export default {
 <style  lang="scss">
 @import '../../../assets/scss/style.scss';
 
-.calculator {
+.lending .calculator {
   @include adaptiveValue(margin-top, 50, 30);
   @include adaptiveValue(padding-top, 50, 150);
   @include adaptiveValue(padding-bottom, 165, 50);

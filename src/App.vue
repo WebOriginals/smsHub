@@ -28,7 +28,7 @@ export default {
 </script>
 
 <template>
-  <div class="wrapper">
+  <div class="wrapper lending">
     <Header></Header>
     <main class="page main">
       <First></First>

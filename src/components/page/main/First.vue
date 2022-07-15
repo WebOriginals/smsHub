@@ -40,7 +40,7 @@ export default {
 <style scoped lang="scss">
 @import '../../../assets/scss/style.scss';
 
-.first {
+.lending .first {
   @include adaptiveValue(margin-bottom, 65,30);
 
   &__container {

@@ -56,7 +56,7 @@ export default {
 <style lang="scss">
 @import '../../../assets/scss/style.scss';
 
-.ask{
+.lending .ask{
   @include adaptiveValue(padding-top, 65, 30);
   @include adaptiveValue(padding-bottom, 65, 30);
 

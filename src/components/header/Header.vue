@@ -85,58 +85,60 @@ export default {
 
 <style lang="scss">
 @import '../../assets/scss/style.scss';
+.lending{
 
-.leng {
-  min-width: 180px;
-  min-height: 50px;
-  @include mq('tablet') {
-    min-width: 100px;
-  }
-  @include mq('tablet') {
-    max-width: fit-content;
-  }
-  .vs__search{
-    display: none;
-  }
-
-  &-title{
-    display: flex;
-    align-items: center;
-    gap: 15px;
-
-    @include maq('tablet') {
-      flex-direction: row-reverse;
+  .leng {
+    min-width: 180px;
+    min-height: 50px;
+    @include mq('tablet') {
+      min-width: 100px;
     }
     @include mq('tablet') {
-      span{
-        display: none;
+      max-width: fit-content;
+    }
+    .vs__search{
+      display: none;
+    }
+
+    &-title{
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      @include maq('tablet') {
+        flex-direction: row-reverse;
+      }
+      @include mq('tablet') {
+        span{
+          display: none;
+        }
+      }
+    }
+
+    .vs__dropdown-toggle {
+      height: 100%;
+      border: none;
+    }
+
+    .vs__open-indicator {
+      path {
+        fill: #fff
+      }
+    }
+
+    .vs__dropdown-menu {
+      top: 50px;
+      @include mq('tablet') {
+        max-width: 100px;
+        min-width: 10px;
       }
     }
   }
 
-  .vs__dropdown-toggle {
+  .vs__open .vs__dropdown-toggle {
+    background-color: #fff;
     height: 100%;
-    border: none;
+    opacity: 1;
   }
-
-  .vs__open-indicator {
-    path {
-      fill: #fff
-    }
-  }
-
-  .vs__dropdown-menu {
-    top: 50px;
-    @include mq('tablet') {
-      max-width: 100px;
-      min-width: 10px;
-    }
-  }
-}
-
-.vs__open .vs__dropdown-toggle {
-  background-color: #fff;
-  height: 100%;
-  opacity: 1;
 }
 </style>

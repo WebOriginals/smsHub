@@ -15,7 +15,6 @@ section.map
 </template>
 
 <script>
-
 import * as am5 from '@amcharts/amcharts5';
 import * as am5xy from '@amcharts/amcharts5/xy';
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated';
@@ -128,7 +127,7 @@ export default {
 <style lang="scss">
 @import '../../../assets/scss/style.scss';
 
-.map{
+.lending .map{
   @include adaptiveValue(padding-top, 65, 30);
   @include adaptiveValue(padding-bottom, 65, 30);
 

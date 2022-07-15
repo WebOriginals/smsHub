@@ -39,7 +39,7 @@ export default {
 <style scoped lang="scss">
 @import '../../../assets/scss/style.scss';
 
-.howItWorks {
+.lending .howItWorks {
   @include adaptiveValue(padding-top, 65, 30);
   @include adaptiveValue(padding-bottom, 65, 30);
 
@@ -53,9 +53,6 @@ export default {
   }
   &__title {
     @include adaptiveValue(margin-bottom, 40, 40);
-  }
-  &__description {
-
   }
   &__content {
     position: relative;
@@ -105,7 +102,7 @@ export default {
               opacity: 0;
             }
 
-            animation: firstPoint1 2s ease 1 normal 1s forwards;
+            animation: firstPoint1 1s ease 1 normal 1s forwards;
           }
 
           &:nth-child(4) {
@@ -120,10 +117,10 @@ export default {
               border-top: 2px dotted $mainColor;
               opacity: 0;
               transform: rotate(-92deg) translateY(-33px) translateX(44px);
-              animation: connectionAppearances 1s linear 1 normal 7.8s forwards;
+              animation: connectionAppearances 1s linear 1 normal 4s forwards;
             }
 
-            animation: firstPoint2 4s ease 1 normal 4s forwards;
+            animation: firstPoint2 2s ease 1 normal 2s forwards;
           }
 
           &:nth-child(5) {
@@ -138,10 +135,10 @@ export default {
               opacity: 0;
               border-top: 2px dotted $mainColor;
               transform: rotate(74deg) translateY(16px) translateX(-32px);
-              animation: connectionAppearances 1s linear 1 normal 11.5s forwards;
+              animation: connectionAppearances 1s linear 1 normal 6s forwards;
             }
 
-            animation: firstPoint3 4s ease 1 normal 8s forwards;
+            animation: firstPoint3 2s ease 1 normal 4s forwards;
           }
         }
       }
@@ -208,15 +205,15 @@ export default {
         li{
           &:nth-child(1){
             opacity: 0;
-            animation: connectionText 2s ease 1 normal 3s forwards;
+            animation: connectionText 1s ease 1 normal 2s forwards;
           }
           &:nth-child(2){
             opacity: 0;
-            animation: connectionText 2s ease 1 normal 8s forwards;
+            animation: connectionText 1s ease 1 normal 4s forwards;
           }
           &:nth-child(3){
             opacity: 0;
-            animation: connectionText 2s ease 1 normal 12s forwards;
+            animation: connectionText 1s ease 1 normal 6s forwards;
           }
         }
       }

@@ -425,7 +425,7 @@ export default {
 <style  lang="scss">
 @import '../../../assets/scss/style.scss';
 
-.basicFigures{
+.lending  .basicFigures{
   @include adaptiveValue(padding-top, 65, 30);
   @include adaptiveValue(padding-bottom, 65, 30);
 
