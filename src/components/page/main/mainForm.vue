@@ -1,5 +1,5 @@
 <template lang="pug">
-section.mainForm#mainForm
+section.mainForm#mainForm(ref="mainForm")
   .mainForm__container
     h2.mainForm__title Стать партнёром <span>SMSHUB</span>
     p <b>Не тратьте время и деньги на работу с сайтами и кодированием</b> — мы сосредоточены на задачах вашего бизнеса и

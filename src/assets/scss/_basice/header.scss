@@ -4,6 +4,7 @@
   width: 100%;
   z-index: 49;
 
+
   &__container{
     display: flex;
     justify-content: space-between;
@@ -29,6 +30,7 @@
       background-image: url("../../assets/img/svg/bg-menu.svg");
       background-repeat: no-repeat;
       background-position: bottom -3% left;
+      background-size: cover;
     }
     @include mq('tablet-wide') {
       margin-left: auto;
@@ -39,6 +41,14 @@
     }
   }
 
+  &.stickytop {
+    position: fixed ;
+    padding: rem(10) 0 ;
+    top: 0;
+    left: 0;
+    background: #414042;
+    z-index: 10000;
+  }
 }
 .first__soc{
   display: flex;

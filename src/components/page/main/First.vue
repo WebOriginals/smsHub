@@ -6,7 +6,7 @@ section.first
       p Ваши номера будут продаваться на самом крупном сервисе смс активаций, что позволит получать <span>прибыль до 75% с первых минут после полного подключения.</span>
       .first__btns
         button.button-e.popup-link(data-popup="#Application") оставь заявку
-        a.button-w(href="#" data-goto="calculator") Рассчитать прибыль
+        //.button-w(@click="onHandlerClick('calculator')") Рассчитать прибыль
     .first__greenLine
       img(src="../../../assets/img/png/first.png")
     .first__soc(data-da=".header__menu,992,last")
@@ -18,13 +18,11 @@ section.first
         svg(width='32', height='32', viewbox='0 0 32 32', fill='none', xmlns='http://www.w3.org/2000/svg')
           path(d='M2.51801 8.45762L14.518 14.904C14.9212 15.12 15.4428 15.2224 15.9676 15.2224C16.4924 15.2224 17.014 15.12 17.4172 14.904L29.4172 8.45762C30.1996 8.03682 30.9388 6.40002 29.5036 6.40002H2.43321C0.998012 6.40002 1.73721 8.03682 2.51801 8.45762ZM29.7804 11.9824L17.4172 18.4256C16.8732 18.7104 16.4924 18.744 15.9676 18.744C15.4428 18.744 15.062 18.7104 14.518 18.4256C13.974 18.1408 3.10521 12.4432 2.21721 11.9808C1.59321 11.6544 1.59961 12.0368 1.59961 12.3312V24C1.59961 24.672 2.50521 25.6 3.19961 25.6H28.7996C29.494 25.6 30.3996 24.672 30.3996 24V12.3328C30.3996 12.0384 30.406 11.656 29.7804 11.9824Z', fill='#64AF59')
 
-
-
 </template>
 
 <script>
 import {DynamicAdapt} from "../../../assets/js/libs/dynamic_adapt.js";
-import {pageNavigation} from "../../../assets/js/files/scroll/scroll.js";
+
 
 export default {
   name: "First",
@@ -32,8 +30,19 @@ export default {
     //Перемещение блоков при разных разрешениях см assets/js/libs/dynamic_adapt.js
     this.da = new DynamicAdapt("max");
     this.da.init();
-    pageNavigation();
-  }
+  },
+  methods: {
+    onHandlerClick(index) {
+      console.log(index)
+      const elementScrollTo = document.getElementById(index);
+      console.log(elementScrollTo)
+      elementScrollTo.scrollIntoView({
+        block: "center",
+        inline: "nearest",
+        behavior: "smooth"
+      })
+    }
+  },
 }
 </script>
 

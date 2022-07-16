@@ -10,6 +10,9 @@ import ask from "./components/page/main/ask.vue";
 import Footer from "./components/footer/footer.vue";
 import Thanks from "./components/popups/Thanks.vue";
 import Application from "./components/popups/Application.vue";
+import vSelect from "vue-select";
+import {bodyLockStatus, bodyLockToggle} from "./assets/js/files/functions";
+import {DynamicAdapt} from "./assets/js/libs/dynamic_adapt";
 export default {
   components: {
     Application,
@@ -23,17 +26,18 @@ export default {
     HowItWorks,
     Header,
     First
-  }
+  },
+
 }
 </script>
 
 <template>
-  <div class="wrapper lending">
+  <div class="wrapper lending" >
     <Header></Header>
-    <main class="page main">
+    <main class="page main" >
       <First></First>
       <how-it-works></how-it-works>
-      <calculator></calculator>
+<!--      <calculator></calculator>-->
       <main-indicators></main-indicators>
       <ChartMap></ChartMap>
       <main-form></main-form>

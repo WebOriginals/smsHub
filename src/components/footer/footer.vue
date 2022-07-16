@@ -8,23 +8,22 @@ footer.footer
           img(src='../../assets/img/svg/logo-header.svg' alt='logo SmsHub')
       nav.footer-top__nav
         ul
-          li
-            a.foorer-menu__link(href="#") Калькулятор дохода
-          li
-            a.foorer-menu__link(href="#") Стать партнёром
-          li
-            a.foorer-menu__link(href="#") Вопрос/Ответ
+          li(v-for="link in linksTop"
+            :key="link.id"
+            @click="onHandlerClick(link.path)"
+            )
+            .foorer-menu__link {{link.name}}
 
     .footer__bottom.footer-bottom
       p с 2022. SMS-ACTIVATE.ORG
       nav.footer-bottom__nav
         ul
           li
-            a.foorer-menu__link(href="#") Калькулятор дохода
+            a.foorer-menu__link(href="#") Правла проекта
           li
-            a.foorer-menu__link(href="#") Стать партнёром
+            a.foorer-menu__link(href="#") Публичная оферта
           li
-            a.foorer-menu__link(href="#") Вопрос/Ответ
+            a.foorer-menu__link(href="#") Положение о сервисе
       .footer-bottom__soc
         p напишите нам:
         a(href="mailto:test@yandex.tu")
@@ -45,12 +44,50 @@ footer.footer
 </template>
 
 <script>
+import ask from "../page/main/ask.vue";
+import mainForm from "../page/main/mainForm.vue";
+import calculator from "../page/main/calculator.vue";
 export default {
-  name: "footer"
+  name: "footer",
+  components: {
+    ask,
+    mainForm,
+    calculator
+  },
+  data() {
+    return {
+      linksTop: [
+        {id: 0, path: "calculator", name: "Калькулятор дохода"},
+        {id: 1, path: "mainForm", name: "Стать партнёром"},
+        {id: 2, path: "ask", name: "Вопрос/Ответ"},
+      ],
+      linksBottom: [
+        {id: 0, path: "", name: "Правла проекта"},
+        {id: 1, path: "", name: "Публичная оферта"},
+        {id: 2, path: "", name: "Положение о сервисе"},
+      ],
+    };
+  },
+  mounted() {
+
+  },
+
+  methods:{
+    onHandlerClick(index) {
+      const elementScrollTo = document.getElementById(index);
+      elementScrollTo.scrollIntoView({
+        block: "center",
+        inline: "nearest",
+        behavior: "smooth"
+      })
+    }
+  }
 }
 </script>
 
 <style lang="scss">
 @import '../../assets/scss/style.scss';
-
+.foorer-menu__link{
+  cursor: pointer;
+}
 </style>
