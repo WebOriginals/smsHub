@@ -5,20 +5,20 @@ section.mainForm#mainForm(ref="mainForm")
     p <b>Не тратьте время и деньги на работу с сайтами и кодированием</b> — мы сосредоточены на задачах вашего бизнеса и
       | поэтому создали простую, удобную и эффективную платформу для заработка на сим-картах. <br> <span> <b>Просто заполните форму
       | и отправьте заявку на подключение</b></span>
-    form
+    form(action="#" id="form" method="post" enctype="multipart/form-data" autocomplete="off")
       .mainForm__call
         label(for="name") Ваше имя
-        input.input#name(placeholder="Иван" name="name" v-model="state.name" minlength="2" maxlength="20" required )
+        input.input#name(ref="formName" placeholder="Иван" name="name" v-model="name" minlength="2" maxlength="20" @change="formNameValid" required )
       .mainForm__call
         label(for="email") Ваш e-mail*
-        input.input#email(placeholder="Name@mail.ru" name="email" v-model="state.email" required)
+        input.input#email(ref="formEmail" placeholder="Name@mail.ru" name="email" v-model="email" @change="formEmailValid" required)
         //span(v-if="v$.state.email.$error") {{ v$.email.$errors[0].$message }}
       .mainForm__call
         label(for="telegram") Телеграм*
-        input.input#telegram(placeholder="Номер или @юзернейм" name="telegram" v-model="state.telegram" minlength="2" maxlength="50" required)
+        input.input#telegram(ref="formTelegram" placeholder="Номер или @юзернейм" name="telegram" v-model="telegram" minlength="2" maxlength="50" @change="formTelegramValid" required)
       .mainForm__call
-        label(for="country") Страны использования sim-карт
-        input.input#country(placeholder="Росиия, Англия, Германия..." name="country" v-model="country")
+        label Страны использования sim-карт
+        v-select.form-select(class="vs__search" multiple v-model="selectedCountry" name="equipment" :options="country" label="text" )
       .mainForm__call
         label Какое у вас оборудование?
         v-select.form-select(v-model="selectedEquipment" name="equipment" :options="equipment" label="text" )
@@ -26,7 +26,7 @@ section.mainForm#mainForm(ref="mainForm")
         label Количество портов
         input.input#quantityPorts(placeholder="2" type="number"  name="quantityPorts" v-model="quantityPorts")
 
-      button.button-e.button-height(type="submit" @click.prevent="submitForm") отправить заявку
+      button.button-e.button-height(type="submit" @click="submitForm") отправить заявку
 
 
 </template>
@@ -35,14 +35,18 @@ section.mainForm#mainForm(ref="mainForm")
 import vSelect from 'vue-select';
 import OpenIndicator from 'vue-select/src/components/OpenIndicator.vue';
 
-import useVuelidate from "@vuelidate/core"
-import { required, email, minLength} from "@vuelidate/validators";
-import {reactive, computed } from "vue";
+
 
 const SelectEquipment = [
   {text: 'Дешовое', value: 'low'},
   {text: 'Средние', value: 'average'},
   {text: 'Дорогое', value: 'expensive'},
+];
+
+const SelectCountry = [
+  {text: 'Россия', value: 'ru'},
+  {text: 'Терция', value: 'tu'},
+  {text: 'Грузия', value: 'gr'},
 ];
 
 
@@ -54,46 +58,68 @@ export default {
     OpenIndicator
   },
 
-  setup() {
-    const state = reactive({
-      name: "",
-      email: "",
-      telegram: "",
-    })
-    const rules = computed(() => {
-      return{
-        name: {required, minLength: minLength(2)},
-        email: {required, email },
-        telegram: {required, minLength: minLength(3)},
-      }
-    })
-    const v$ = useVuelidate(rules, state)
-    return{
-      state,
-      v$
-    }
-  },
+
   data() {
     return {
-      v$:useVuelidate(),
+
       equipment: SelectEquipment,
       //Selected для селекта
       selectedEquipment: SelectEquipment[0],
-      country: "",
+
+      country: SelectCountry,
+      selectedCountry: SelectCountry[0],
+
+      name: "",
+      email: "",
+      telegram: "",
       quantityPorts: "",
     }
   },
 
+
   methods: {
+    formNameValid(){
+      const name = this.$refs.formName;
+      const nameAdMinLength = +name.getAttribute('minlength');
+      const nameAdMaxLength = +name.getAttribute('maxlength');
+
+      if (name.value.length < nameAdMinLength) {
+        name.setCustomValidity(`Минимальное количество символов ${nameAdMinLength}, добавьте ещё ${nameAdMinLength - name.value.length} симв.`);
+      } else if (name.value.length > nameAdMaxLength) {
+        name.setCustomValidity(`Максимально количество символов ${nameAdMaxLength}, удалите лишние ${name.value.length - nameAdMaxLength} симв.`);
+      } else {
+        name.setCustomValidity('');
+      }
+      name.reportValidity();
+    },
+
+    formEmailValid() {
+      const email = this.$refs.formEmail;
+
+      if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(email.value)) {
+        email.setCustomValidity(`Емаил не соответствует стандартам Пример : ivanov18@gmail.com`);
+      }  else {
+        email.setCustomValidity('');
+      }
+      email.reportValidity();
+    },
+
+    formTelegramValid() {
+      const telegram = this.$refs.formTelegram;
+
+      if (telegram.value.length < telegramAdMinLength) {
+        telegram.setCustomValidity(`Минимальное количество символов ${telegramAdMinLength}, добавьте ещё ${telegramAdMinLength - telegram.value.length} симв.`);
+      } else if (telegram.value.length > telegramAdMaxLength) {
+        telegram.setCustomValidity(`Максимально количество символов ${telegramAdMaxLength}, удалите лишние ${telegram.value.length - telegramAdMaxLength} симв.`);
+      } else {
+        telegram.setCustomValidity('');
+      }
+      telegram.reportValidity();
+    },
+
     submitForm(){
 
-      this.v$.$validate()
-      if(!this.v$.$error){
-        alert('form successfully submit ')
-      } else {
-        alert('form falid')
-      }
-
+      //alert(name)
     }
   }
 }
@@ -164,12 +190,24 @@ export default {
       height: 56px;
       padding: em(10) em(20);
     }
+
     .vs__selected{
       font-size: rem(18);
     }
+
     .vs__clear,
     .vs__open-indicator {
       fill: #394066;
+    }
+
+    &.vs__search,
+    &.vs__search:focus {
+      width: 100%;
+      padding: 0;
+    }
+    .vs__selected{
+      background: none;
+      border: none;
     }
   }
 }
