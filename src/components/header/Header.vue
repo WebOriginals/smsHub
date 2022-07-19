@@ -4,7 +4,7 @@ header.header(ref="header" )
     a.header__logo(href="/")
       picture
         source(srcset="../../assets/img/svg/logo-header.svg" media="(min-width: 601px)" type="image/svg+xml")
-        //source(v-if="!ifScroll" srcset="../../assets/img/svg/logo-header-white.svg" media="(min-width: 601px)" type="image/svg+xml")
+        //source(v-if="showWhitLogo" srcset="../../assets/img/svg/logo-header-white.svg" media="(min-width: 601px)" type="image/svg+xml")
         source(srcset="../../assets/img/svg/logo-header-m.svg" media="(max-width: 600.99px)" type="image/svg+xml")
         img(src='../../assets/img/svg/logo-header.svg' alt='logo SmsHub')
 
@@ -63,46 +63,51 @@ export default {
         {id: 1, path: "mainForm", name: "Стать партнёром"},
         {id: 2, path: "ask", name: "Вопрос/Ответ"},
       ],
-
+      showWhitLogo: false,
     }
   },
   methods: {
     //Работа с бургером на мобиле
     showMenuOnMobile() {
+      // получаем иконку бургера
       let iconMenu = this.$refs.menu__icon;
+      // получаем блок в навигацией
       let bodyMenu = this.$refs.menu__body;
-
+      // проверяем смотрим состояние
       if (bodyLockStatus) {
+        // проверяем есть ли у html .lock и блокируем скролл
         bodyLockToggle();
+        // меняем состояние бургера
         iconMenu.classList.toggle('_active');
+        // показываем меню мобильное
         bodyMenu.classList.toggle('_active');
       }
     },
+    // функция для скролла к конкретному блоку
+    scrollTo(element){
+      element.scrollIntoView({
+        block: "start",
+        inline: "nearest",
+        behavior: "smooth"
+      })
+    },
+    // обработчик клика по ссылкам меню
     onHandlerClick(index) {
+      // получаем конкретную ссылку
       const elementScrollTo = document.getElementById(index);
-      if(window.outerWidth <= 990){
-        let iconMenu = this.$refs.menu__icon;
-        let bodyMenu = this.$refs.menu__body;
 
-        if (bodyLockStatus) {
-          bodyLockToggle();
-          iconMenu.classList.toggle('_active');
-          bodyMenu.classList.toggle('_active');
-        }
-        elementScrollTo.scrollIntoView({
-          block: "start",
-          inline: "nearest",
-          behavior: "smooth"
-        })
+      if(window.outerWidth <= 990){
+        this.showMenuOnMobile();
+        this.scrollTo(elementScrollTo);
       } else {
-        elementScrollTo.scrollIntoView({
-          block: "center",
-          inline: "nearest",
-          behavior: "smooth"
-        })
+        this.scrollTo(elementScrollTo)
       }
     },
 
+    // функция добавляющая клас для шапки
+    stickyHeader(){
+
+    }
   },
 
   mounted() {
@@ -116,7 +121,9 @@ export default {
         if (window.pageYOffset > 100) {
           header.classList.add('stickytop');
           this.showWhitLogo = true;
+          console.log(this.showWhitLogo)
         } else {
+          console.log(22)
           header.classList.remove('stickytop');
           this.showWhitLogo = false;
         }
