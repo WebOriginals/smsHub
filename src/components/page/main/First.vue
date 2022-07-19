@@ -8,7 +8,7 @@ section.first
         button.button-e.popup-link(data-popup="#Application") оставь заявку
         //.button-w(@click="onHandlerClick('calculator')") Рассчитать прибыль
     .first__greenLine
-      img(src="../../../assets/img/png/first.png")
+      img(src="@/img/png/first.png")
     .first__soc(data-da=".header__menu,992,last")
       a(href="https://tlgg.ru/@dklnn")
         svg(width='32', height='32', viewbox='0 0 32 32', fill='none', xmlns='http://www.w3.org/2000/svg')

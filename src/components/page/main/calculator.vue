@@ -117,10 +117,10 @@ export default {
   @include adaptiveValue(padding-bottom, 165, 50);
   @include adaptiveValue(margin-bottom, 65, 30);
   position: relative;
-  background: url("../../../assets/img/svg/bg-chart2-spa-none.svg") no-repeat center / cover;
+  background: url("../../../../public/assets/img/svg/bg-chart2-spa-none.svg") no-repeat center / cover;
 
   @include maq('tablet') {
-    background: url("../../../assets/img/svg/bg-chart2.svg") no-repeat center / cover;
+    background: url("../../../../public/assets/img/svg/bg-chart2.svg") no-repeat center / cover;
   }
   &__container {
     display: grid;

@@ -32,7 +32,7 @@ export default {
 </script>
 
 <template>
-  <div class="wrapper lending" @scroll="stickyHeader">
+  <div class="wrapper lending">
     <Header></Header>
     <main class="page main" >
       <First></First>
@@ -50,6 +50,5 @@ export default {
 </template>
 
 <style>
-
 
 </style>

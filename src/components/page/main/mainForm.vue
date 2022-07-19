@@ -8,24 +8,25 @@ section.mainForm#mainForm(ref="mainForm")
     form
       .mainForm__call
         label(for="name") Ваше имя
-        input.input#name(placeholder="Иван" v-model="name")
+        input.input#name(placeholder="Иван" name="name" v-model="state.name" minlength="2" maxlength="20" required )
       .mainForm__call
         label(for="email") Ваш e-mail*
-        input.input#email(placeholder="Name@mail.ru" v-model="email")
+        input.input#email(placeholder="Name@mail.ru" name="email" v-model="state.email" required)
+        //span(v-if="v$.state.email.$error") {{ v$.email.$errors[0].$message }}
       .mainForm__call
         label(for="telegram") Телеграм*
-        input.input#telegram(placeholder="Номер или @юзернейм" v-model="telegram")
+        input.input#telegram(placeholder="Номер или @юзернейм" name="telegram" v-model="state.telegram" minlength="2" maxlength="50" required)
       .mainForm__call
         label(for="country") Страны использования sim-карт
-        input.input#country(placeholder="Росиия, Англия, Германия..." v-model="country")
+        input.input#country(placeholder="Росиия, Англия, Германия..." name="country" v-model="country")
       .mainForm__call
         label Какое у вас оборудование?
-        v-select.form-select(v-model="selectedEquipment" :options="equipment" label="text" )
+        v-select.form-select(v-model="selectedEquipment" name="equipment" :options="equipment" label="text" )
       .mainForm__call
         label Количество портов
-        v-select.form-select(v-model="selectedPort" :options="Port" label="text" )
+        input.input#quantityPorts(placeholder="2" type="number"  name="quantityPorts" v-model="quantityPorts")
 
-      button.button-e.button-height отправить заявку
+      button.button-e.button-height(type="submit" @click.prevent="submitForm") отправить заявку
 
 
 </template>
@@ -34,35 +35,65 @@ section.mainForm#mainForm(ref="mainForm")
 import vSelect from 'vue-select';
 import OpenIndicator from 'vue-select/src/components/OpenIndicator.vue';
 
+import useVuelidate from "@vuelidate/core"
+import { required, email, minLength} from "@vuelidate/validators";
+import {reactive, computed } from "vue";
+
 const SelectEquipment = [
   {text: 'Дешовое', value: 'low'},
   {text: 'Средние', value: 'average'},
   {text: 'Дорогое', value: 'expensive'},
 ];
-const SelectPort = [
-  {text: '1', value: '1'},
-  {text: '2', value: '2'},
-  {text: '3', value: '3'},
-];
+
 
 export default {
   name: "mainForm",
+
   components: {
     vSelect,
     OpenIndicator
   },
-  data() {
-    return {
-      equipment: SelectEquipment,
-      //Selected для селекта
-      selectedEquipment: SelectEquipment[0],
-      Port: SelectPort,
-      //Selected для селекта
-      selectedPort: SelectPort[0],
+
+  setup() {
+    const state = reactive({
       name: "",
       email: "",
       telegram: "",
+    })
+    const rules = computed(() => {
+      return{
+        name: {required, minLength: minLength(2)},
+        email: {required, email },
+        telegram: {required, minLength: minLength(3)},
+      }
+    })
+    const v$ = useVuelidate(rules, state)
+    return{
+      state,
+      v$
+    }
+  },
+  data() {
+    return {
+      v$:useVuelidate(),
+      equipment: SelectEquipment,
+      //Selected для селекта
+      selectedEquipment: SelectEquipment[0],
       country: "",
+      quantityPorts: "",
+    }
+  },
+
+  methods: {
+    submitForm(){
+
+      this.v$.$validate()
+      if(!this.v$.$error){
+        alert('form successfully submit ')
+      } else {
+        alert('form falid')
+      }
+
     }
   }
 }
@@ -77,12 +108,12 @@ export default {
   @include adaptiveValue(padding-bottom, 165, 60);
   color: $color_1;
   position: relative;
-  background: url("../../../assets/img/svg/bg-form-spa-none.svg") no-repeat;
+  background: url("../../../../public/assets/img/svg/bg-form-spa-none.svg") no-repeat;
   background-position: center right;
   background-size: cover;
 
   @include maq('tablet') {
-    background: url("../../../assets/img/svg/bg-form.svg") no-repeat center;
+    background: url("../../../../public/assets/img/svg/bg-form.svg") no-repeat center;
     background-size: cover;
   }
 

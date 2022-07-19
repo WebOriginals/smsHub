@@ -3,10 +3,10 @@ header.header(ref="header" )
   .header__container
     a.header__logo(href="/")
       picture
-        source(srcset="../../assets/img/svg/logo-header.svg" media="(min-width: 601px)" type="image/svg+xml")
+        source(srcset="@/img/svg/logo-header.svg" media="(min-width: 601px)" type="image/svg+xml")
         //source(v-if="showWhitLogo" srcset="../../assets/img/svg/logo-header-white.svg" media="(min-width: 601px)" type="image/svg+xml")
-        source(srcset="../../assets/img/svg/logo-header-m.svg" media="(max-width: 600.99px)" type="image/svg+xml")
-        img(src='../../assets/img/svg/logo-header.svg' alt='logo SmsHub')
+        source(srcset="@/img/svg/logo-header-m.svg" media="(max-width: 600.99px)" type="image/svg+xml")
+        img(src='@/img/svg/logo-header.svg' alt='logo SmsHub')
 
     nav.header__menu.menu__body(ref="menu__body")
       ul(ref="menu__links")
@@ -38,8 +38,8 @@ import {DynamicAdapt} from "../../assets/js/libs/dynamic_adapt.js";
 import vSelect from 'vue-select';
 
 const Select = [
-  {text: 'Russia', img: "../../src/assets/img/png/russia.png", value: 'ru'},
-  {text: 'Usa', img: "../../src/assets/img/png/united-states.png", value: 'en'},
+  {text: 'Russia', img: "public/assets/img/png/russia.png", value: 'ru'},
+  {text: 'Usa', img: "public/assets/img/png/united-states.png", value: 'en'},
 ];
 
 

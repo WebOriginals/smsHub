@@ -4,8 +4,8 @@ footer.footer
     .footer__top.footer-top
       a.footer__logo(href="/")
         picture
-          source(srcset="../../assets/img/svg/logo-header.svg" media="(min-width: 601px)" type="image/svg+xml")
-          img(src='../../assets/img/svg/logo-header.svg' alt='logo SmsHub')
+          source(srcset="@/img/svg/logo-header.svg" media="(min-width: 601px)" type="image/svg+xml")
+          img(src='@/img/svg/logo-header.svg' alt='logo SmsHub')
       nav.footer-top__nav
         ul
           li(v-for="link in linksTop"
