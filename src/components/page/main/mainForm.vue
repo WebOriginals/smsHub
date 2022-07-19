@@ -72,7 +72,7 @@ export default {
       name: "",
       email: "",
       telegram: "",
-      quantityPorts: "",
+      quantityPorts: 3,
     }
   },
 

@@ -1,5 +1,6 @@
 <template lang="pug">
 header.header(ref="header" )
+  p {{ t('title', {}, {locale: lang}) }}
   .header__container
     a.header__logo(href="/")
       picture
@@ -18,7 +19,7 @@ header.header(ref="header" )
 
 
     .header__language(data-da=".header__menu,992,2")
-      v-select.leng(v-model="selected" :options="arrayForSelect" label="text" :searchable="false")
+      v-select.leng(v-model="selected" :options="arrayForSelect" label="text" :searchable="false" @change="change($event.target.value)")
         template(#selected-option="{ img, text }")
           .leng-title
             img(:src="img" style="max-width:38px")
@@ -37,17 +38,25 @@ import {bodyLockStatus, bodyLockToggle} from "../../assets/js/files/functions.js
 import {DynamicAdapt} from "../../assets/js/libs/dynamic_adapt.js";
 import vSelect from 'vue-select';
 
+import { defineComponent } from "vue";
+import { useI18n } from "vue-i18n";
+
 const Select = [
   {text: 'Russia', img: "public/assets/img/png/russia.png", value: 'ru'},
   {text: 'Usa', img: "public/assets/img/png/united-states.png", value: 'en'},
 ];
 
 
-export default {
+export default  defineComponent({
   name: "Header",
   components: {
     vSelect
   },
+  setup() {
+    const { t, locale } = useI18n() // use as global scope
+    return { t, locale }
+  },
+
   data() {
     return {
       //Пропс class для селекта
@@ -64,8 +73,10 @@ export default {
         {id: 2, path: "ask", name: "Вопрос/Ответ"},
       ],
       showWhitLogo: false,
+      lang: "en",
     }
   },
+
   methods: {
     //Работа с бургером на мобиле
     showMenuOnMobile() {
@@ -104,9 +115,9 @@ export default {
       }
     },
 
-    // функция добавляющая клас для шапки
-    stickyHeader(){
 
+    change(lang){
+      this.lang = lang;
     }
   },
 
@@ -130,7 +141,8 @@ export default {
       };
     }
   },
-}
+})
+
 </script>
 
 <style lang="scss">
