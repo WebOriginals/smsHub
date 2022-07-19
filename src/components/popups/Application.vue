@@ -12,10 +12,11 @@
         p.Application-body__description Пожалуйста, заполните все поля ниже
         form.Application-form
           .Application-form__coll
-            input.input(placeholder='Никнейм Телеграм' v-model="telegram")
+            input.input(ref="formTelegram" placeholder='Никнейм Телеграм' v-model="telegram"  minlength="2" maxlength="50" required)
 
           .Application-form__coll
-            input.input(placeholder='Укажите страны использования сим-карт' v-model="country")
+            v-select.form-select(class="vs__search" multiple v-model="selectedCountry" name="equipment" :options="country" label="text" )
+
 
           b Какое оборудование будете использовать?
           .Application-form__coll.radio
@@ -43,20 +44,66 @@
 </template>
 
 <script>
+import vSelect from 'vue-select';
+import OpenIndicator from 'vue-select/src/components/OpenIndicator.vue';
+
+
+const SelectCountry = [
+  {text: 'Россия', value: 'ru'},
+  {text: 'Терция', value: 'tu'},
+  {text: 'Грузия', value: 'gr'},
+];
 export default {
   name: "Application",
+
+  components: {
+    vSelect,
+    OpenIndicator
+  },
+
   data() {
     return {
       equipment:'GSM',
       telegram:'',
-      country:'',
+      country: SelectCountry,
+      selectedCountry: SelectCountry[0],
       quantityPorts: '',
     }
+  },
+  methods: {
+    formTelegramValid() {
+      const telegram = this.$refs.formTelegram;
+
+      if (telegram.value.length < telegramAdMinLength) {
+        telegram.setCustomValidity(`Минимальное количество символов ${telegramAdMinLength}, добавьте ещё ${telegramAdMinLength - telegram.value.length} симв.`);
+      } else if (telegram.value.length > telegramAdMaxLength) {
+        telegram.setCustomValidity(`Максимально количество символов ${telegramAdMaxLength}, удалите лишние ${telegram.value.length - telegramAdMaxLength} симв.`);
+      } else {
+        telegram.setCustomValidity('');
+      }
+      telegram.reportValidity();
+    },
   }
 }
 </script>
 
 <style lang="scss">
 
+.form-select{
+  &.vs__search,
+  &.vs__search:focus {
+    width: 100%;
+    padding: 0;
+  }
+
+  .vs__selected{
+    background: none;
+    border: none;
+  }
+  .vs__dropdown-toggle{
+    height: 56px;
+    border: 1px solid #414042;
+  }
+}
 
 </style>
