@@ -1,6 +1,5 @@
 <template lang="pug">
 header.header(ref="header" )
-  p {{ t('title', {}, {locale: lang}) }}
   .header__container
     a.header__logo(href="/")
       picture
@@ -38,23 +37,15 @@ import {bodyLockStatus, bodyLockToggle} from "../../assets/js/files/functions.js
 import {DynamicAdapt} from "../../assets/js/libs/dynamic_adapt.js";
 import vSelect from 'vue-select';
 
-import { defineComponent } from "vue";
-import { useI18n } from "vue-i18n";
-
 const Select = [
   {text: 'Russia', img: "public/assets/img/png/russia.png", value: 'ru'},
   {text: 'Usa', img: "public/assets/img/png/united-states.png", value: 'en'},
 ];
 
-
-export default  defineComponent({
+export default {
   name: "Header",
   components: {
     vSelect
-  },
-  setup() {
-    const { t, locale } = useI18n() // use as global scope
-    return { t, locale }
   },
 
   data() {
@@ -141,14 +132,13 @@ export default  defineComponent({
       };
     }
   },
-})
+}
 
 </script>
 
 <style lang="scss">
 @import '../../assets/scss/style.scss';
 .lending{
-
 
   .menu__link{
     cursor: pointer;
