@@ -1,11 +1,11 @@
 <template lang="pug">
 section.map
   .map__container
-    h2.map__title <span>Наша</span> география
-    b Можем работать с любой страной, любым оператором и любым объёмом.
+    h2.map__title(v-html="$t('map.title')")
+    b(v-html="$t('map.description')")
     .map__content.map-content
       .map-content__list
-        b <span>ТОП-10</span> <br>стран-агентов по заработку предыдущего дня
+        b(v-html="$t('map.titleList')")
         ol
           li(v-for="country in listCountries")
             .fl <span>{{ country.Country}}</span> <span>{{country.number}}</span>

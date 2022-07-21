@@ -1,20 +1,20 @@
 <template lang="pug">
 .basicFigures
   .basicFigures__container
-    h2.basicFigures__title <span>Основные</span> цифры
+    h2.basicFigures__title(v-html="$t('basicFigures.title')")
     .basicFigures__grid
       .basicFigures__itim
         span 1 500
-        p подключено партнёров за 1 год
+        p {{ $t('basicFigures.columnFirst')}}
       .basicFigures__itim
         span 22 326
-        p средний доход партнера за 1 месяц
+        p {{ $t('basicFigures.columnSecond')}}
       .basicFigures__itim
         span 3 000 000
-        p Клиентов на сервисе Smshub
+        p {{ $t('basicFigures.columnThird')}}
       .basicFigures__itim
         span 8 272 611
-        p средний доход партнера за 1 год
+        p {{ $t('basicFigures.columnFourth')}}
     apexchart(type="area" height="350" :options="areaChart.chartOptions" :series="areaChart.series")
 
 </template>

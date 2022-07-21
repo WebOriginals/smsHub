@@ -8,24 +8,23 @@ footer.footer
           img(src='@/img/svg/logo-header.svg' alt='logo SmsHub')
       nav.footer-top__nav
         ul
-          li(v-for="link in linksTop"
-            :key="link.id"
-            @click="onHandlerClick(link.path)"
-            )
-            .foorer-menu__link {{link.name}}
+          li(@click="onHandlerClick('mainForm')")
+            .foorer-menu__link {{ $t('footer.linksTop.link_1') }}
+          li(@click="onHandlerClick('ask')")
+            .foorer-menu__link {{ $t('footer.linksTop.link_2') }}
 
     .footer__bottom.footer-bottom
       p с 2022. SMS-ACTIVATE.ORG
       nav.footer-bottom__nav
         ul
           li
-            a.foorer-menu__link(href="#") Правла проекта
+            a.foorer-menu__link(href="#") {{ $t('footer.linkBottom.link_1') }}
           li
-            a.foorer-menu__link(href="#") Публичная оферта
+            a.foorer-menu__link(href="#") {{ $t('footer.linkBottom.link_2') }}
           li
-            a.foorer-menu__link(href="#") Положение о сервисе
+            a.foorer-menu__link(href="#") {{ $t('footer.linkBottom.link_3') }}
       .footer-bottom__soc
-        p напишите нам:
+        p {{ $t('footer.textSocialNetwork') }}
         a(href="mailto:test@yandex.tu")
           svg(width='30', height='30', viewbox='0 0 30 30', fill='none', xmlns='http://www.w3.org/2000/svg')
             rect(x='0.5', y='0.5', width='29', height='29', rx='4.5', fill='white', stroke='#414042')
@@ -56,16 +55,7 @@ export default {
   },
   data() {
     return {
-      linksTop: [
-        {id: 0, path: "calculator", name: "Калькулятор дохода"},
-        {id: 1, path: "mainForm", name: "Стать партнёром"},
-        {id: 2, path: "ask", name: "Вопрос/Ответ"},
-      ],
-      linksBottom: [
-        {id: 0, path: "", name: "Правла проекта"},
-        {id: 1, path: "", name: "Публичная оферта"},
-        {id: 2, path: "", name: "Положение о сервисе"},
-      ],
+
     };
   },
   mounted() {

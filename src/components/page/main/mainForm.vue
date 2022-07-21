@@ -1,32 +1,30 @@
 <template lang="pug">
 section.mainForm#mainForm(ref="mainForm")
   .mainForm__container
-    h2.mainForm__title Стать партнёром <span>SMSHUB</span>
-    p <b>Не тратьте время и деньги на работу с сайтами и кодированием</b> — мы сосредоточены на задачах вашего бизнеса и
-      | поэтому создали простую, удобную и эффективную платформу для заработка на сим-картах. <br> <span> <b>Просто заполните форму
-      | и отправьте заявку на подключение</b></span>
+    h2.mainForm__title(v-html="$t('mainForm.title')")
+    p(v-html="$t('mainForm.description')")
     form(action="#" id="form" method="post" enctype="multipart/form-data" autocomplete="off")
       .mainForm__call
-        label(for="name") Ваше имя
+        label(for="name") {{ $t('mainForm.labelName') }}
         input.input#name(ref="formName" placeholder="Иван" name="name" v-model="name" minlength="2" maxlength="20" @change="formNameValid" required )
       .mainForm__call
-        label(for="email") Ваш e-mail*
+        label(for="email") {{ $t('mainForm.labelEmail') }}
         input.input#email(ref="formEmail" placeholder="Name@mail.ru" name="email" v-model="email" @change="formEmailValid" required)
         //span(v-if="v$.state.email.$error") {{ v$.email.$errors[0].$message }}
       .mainForm__call
-        label(for="telegram") Телеграм*
-        input.input#telegram(ref="formTelegram" placeholder="Номер или @юзернейм" name="telegram" v-model="telegram" minlength="2" maxlength="50" @change="formTelegramValid" required)
+        label(for="telegram") {{ $t('mainForm.labelTelegram') }}
+        input.input#telegram(ref="formTelegram" placeholder="+7 (9... или @user" name="telegram" v-model="telegram" minlength="2" maxlength="50" @change="formTelegramValid" required)
       .mainForm__call
-        label Страны использования sim-карт
+        label {{ $t('mainForm.labelSelectedCountry') }}
         v-select.form-select(class="vs__search" multiple v-model="selectedCountry" name="equipment" :options="country" label="text" )
       .mainForm__call
-        label Какое у вас оборудование?
+        label {{ $t('mainForm.labelSelectedEquipment') }}
         v-select.form-select(v-model="selectedEquipment" name="equipment" :options="equipment" label="text" )
       .mainForm__call
-        label Количество портов
+        label {{ $t('mainForm.labelQuantityPorts') }}
         input.input#quantityPorts(placeholder="2" type="number"  name="quantityPorts" v-model="quantityPorts")
 
-      button.button-e.button-height(type="submit" @click="submitForm") отправить заявку
+      button.button-e.button-height(type="submit" @click="submitForm") {{ $t('mainForm.textBtn') }}
 
 
 </template>

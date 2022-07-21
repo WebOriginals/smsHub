@@ -10,11 +10,10 @@ header.header(ref="header" )
 
     nav.header__menu.menu__body(ref="menu__body")
       ul(ref="menu__links")
-        li(v-for="link in linksTop"
-          :key="link.id"
-          @click="onHandlerClick(link.path)"
-        )
-          .menu__link {{link.name}}
+        li( @click="onHandlerClick('mainForm')")
+          .menu__link {{ $t('header.link_1') }}
+        li( @click="onHandlerClick('ask')")
+          .menu__link {{ $t('header.link_2') }}
 
 
     .header__language(data-da=".header__menu,992,2")

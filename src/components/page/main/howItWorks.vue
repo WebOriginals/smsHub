@@ -2,26 +2,21 @@
 section.howItWorks
   .howItWorks__container
     .howItWorks__content._anim-items._anim-no-hide
-      h2.howItWorks__title  Как <span>это работает</span>?
-      p.howItWorks__description Каждый раз, когда пользователи со всего мира ежедневно принимают коды для регистрации
-        | на миллионах сервисах от “Пятерочки” и “Nike” до “Facebook” и “Telegram” через ваши SIM-карты
-        | <b>вы получаете за это деньги.</b>
-        br
-        br
-        | Все занудные и повторяющиеся действия мы авторизовали в нашем ПО, благодаря которому <b>Вам нужно будет только контролировать замену своих СИМ карт.</b>
+      h2.howItWorks__title(v-html="$t('howItWorks.mainDescription.title')")
+      p.howItWorks__description(v-html="$t('howItWorks.mainDescription.description')")
       .howItWorks__point
       .howItWorks__point
       .howItWorks__point
     ol.howItWorks__list._anim-items._anim-no-hide
       li
-        h6.howItWorks__list-title Оставьте заявку и подключите оборудование
-        p Менеджер проконсультирует по всем интересующим вопросам, подскажет где купить и полностью настроит обородувание
+        h6.howItWorks__list-title(v-html="$t('howItWorks.firstDescription.title')")
+        p(v-html="$t('howItWorks.firstDescription.description')")
       li
-        h6.howItWorks__list-title Меняйте SIM-карты в системе и зарабатывайте
-        p В среднем за <b>12 часов сим-карта может заработать до 60 рублей.</b> Клиенты покупают номера, а вы получаете до 75% от их покупок. Чем больше карт- тем больше прибыль.
+        h6.howItWorks__list-title(v-html="$t('howItWorks.secondDescription.title')")
+        p(v-html="$t('howItWorks.secondDescription.description')")
       li
-        h6.howItWorks__list-title Получайте заработанные средства
-        p Заработанные средства выводятся на банковскую карту, электронный или криптокошелек и другими способами. Минимальная сумма вывода 250р
+        h6.howItWorks__list-title(v-html="$t('howItWorks.secondDescription.title')")
+        p(v-html="$t('howItWorks.secondDescription.description')")
 </template>
 
 <script>
