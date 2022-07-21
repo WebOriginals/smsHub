@@ -4,6 +4,7 @@ section.first
     .first__content
       h1 <span>ЗАРАБАТЫВАЙ </span> НА СИМ-КАРТАХ
       p Ваши номера будут продаваться на самом крупном сервисе смс активаций, что позволит получать <span>прибыль до 75% с первых минут после полного подключения.</span>
+
       .first__btns
         button.button-e.popup-link(data-popup="#Application") оставь заявку
         //.button-w(@click="onHandlerClick('calculator')") Рассчитать прибыль
@@ -20,17 +21,27 @@ section.first
 
 </template>
 
-<script>
+<script >
 import {DynamicAdapt} from "../../../assets/js/libs/dynamic_adapt.js";
-
 
 export default {
   name: "First",
+
+  data () {
+    return {
+      languages: {
+        en: { nativeName: 'English' },
+        de: { nativeName: 'Deutsch' }
+      }
+    }
+  },
+
   mounted() {
     //Перемещение блоков при разных разрешениях см assets/js/libs/dynamic_adapt.js
     this.da = new DynamicAdapt("max");
     this.da.init();
   },
+
   methods: {
     onHandlerClick(index) {
       console.log(index)
