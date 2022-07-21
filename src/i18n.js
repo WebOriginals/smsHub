@@ -12,68 +12,70 @@ i18next
                 translation: {
                     header:{
                         link_1: 'Become a partner',
-                        link_2: 'Question/Answer',
+                        link_2: 'FAQ',
                     },
                     secFirst:{
-                        title: '<span>EARN MONEY </span> ON SIM CARDS',
-                        description: 'Your numbers will be sold on the largest sms activation service,'
-                            +'what will allow you to receive <span> profit up to 75% from the first minutes after full connection.</span>',
-                        textBtn: 'leave a request',
+                        title: '<span>EARN </span> ON SIM CARDS',
+                        description: 'Your numbers will be sold on the largest SMS activation service, '
+                            +'which will allow you to make a  <span>profit of up to 75% from the first minutes after the equipment full connection.</span>',
+                        textBtn: 'Make a request',
                     },
                     howItWorks: {
                         mainDescription: {
-                            title: 'How <span>it works</span>?',
-                            description: 'Every time users from all over the world accept codes for registration every day'
-                            + 'on millions of services from Pyaterochka and Nike to Facebook and Telegram via your SIM cards'
-                            + ' <b>you get paid for it.</b> <br> <br>'
-                            + 'We have authorized all boring and repetitive actions in our software, thanks to which'
-                            + ' <b>You will only need to control the replacement of your SIM cards.</b>'
+                            title: 'How <span>does it work</span>?',
+                            description: 'Every time when users from all over the world'
+                            + 'receive codes for registration on millions of services from “Amazon”'
+                            + 'and “Nike” to “Facebook” and “Telegram” through your SIM cards every day,'
+                            + ' <b>you get money for that.</b>'
+                            + '<br> <br> All repetitive and monotonous actions have been automotized by our software, due to which'
+                            + '<b>everything you will need to do is to control your SIM cards replacement.</b>'
                         },
                         firstDescription: {
-                            title: 'Leave a request and connect the equipment',
-                            description: 'The manager will consult on all questions of interest, tell you where'
-                            + ' to buy and fully configure the equipment'
+                            title: 'Make a request and get your equipment connected',
+                            description: 'Our manager will consult you on any questions that you are interested in, they wil'
+                            + ' tell you where to buy and how to set the equipment.'
                         },
                         secondDescription: {
-                            title: 'Change SIM cards in the system and earn',
-                            description: 'On average, <b> a SIM card can earn up to 60 rubles in 12 hours. </b>'
-                                + 'Клиенты покупают номера, а вы получаете до 75% от их покупок. Чем больше карт- тем больше прибыль.'
+                            title: 'Replace SIM cards in the system and earn',
+                            description: 'On average <b> aa SIM card can earn up to 60 rubles per 12 hours. </b>'
+                            + 'Clients purchase numbers and you get 75% of their spendings. The more cards you have the higher is your income.'
                         },
                         thirdDescription: {
-                            title: 'Get the earned funds',
-                            description: 'The earned funds are withdrawn to a bank card, electronic or '
-                                + 'crypto wallet and other ways. The minimum withdrawal amount is 250 rubles'
+                            title: 'Get earned money',
+                            description: 'Earned money can be withdrawn to a bank card, e-wallet, crypto wallet or other '
+                                + 'ways. The minimum amount for withdrawal is 250 rubles.'
                         },
                     },
                     basicFigures: {
-                        title: '<span>Main</span> numbers',
-                        columnFirst: 'partners connected in 1 year',
-                        columnSecond: 'partner\'s average income for 1 month',
-                        columnThird: 'Clients on the Sms hub service',
-                        columnFourth: 'partner\'s average income for 1 year',
+                        title: '<span>Main</span> figures',
+                        columnFirst: 'partners connected per 1 year',
+                        columnSecond: 'partner’s average income per month',
+                        columnThird: 'clients are on SMSHUB service',
+                        columnFourth: 'is partners average income per a year',
                     },
                     map: {
-                        title: '<span>Our</span> geography',
-                        description: 'We can work with any country, any operator and any volume.',
-                        titleList: '<span>TOP-10</span> <br>countries-agents for earnings of the previous day'
+                        title: '<span>Our</span> Geo',
+                        description: 'We can work with any country, any operator and any amount of numbers',
+                        titleList: '<span>TOP-10</span> <br>of Agent Countries by earning for the previous day'
                     },
                     mainForm: {
-                        title: 'Become a partner <span>SMSHUB</span>',
-                        description: '<b>Don\'t waste time and money working with websites and coding</b> — we are focused on the tasks of your business and'
-                            + ' therefore, we have created a simple, convenient and effective platform for earning money on SIM cards. <br> <span> <b>Just fill out the form'
-                            + ' and send a request to connect</b></span>',
+                        title: 'Become <span>SMSHUB partner</span>',
+                        description: '<b>Don’t waste time and money on work with websites and coding,</b> '
+                            + ' as we are concentrating on your business tasks. That’s why we have created a simple,'
+                            + 'convenient and effective platform for earning on SIM cards<br> '
+                            + '<span> <b>Just fill out the form and send a request for connecting</b></span>',
                         labelName: 'Your name*',
                         labelEmail: 'Your e-mail*',
                         labelTelegram: 'Telegram*',
-                        labelSelectedCountry: 'Countries where SIM cards are used',
-                        labelSelectedEquipment: 'What kind of equipment do you have?',
+                        labelSelectedCountry: 'Countries of SIM cards use',
+                        labelSelectedEquipment: 'What equipment do you have?',
                         labelQuantityPorts: 'Number of ports',
-                        textBtn: 'leave a request',
+                        textBtn: 'Submit',
                     },
                     ask: {
-                        title: 'Frequently Asked <span>Questions</span>',
+                        title: '<span>FAQ</span>',
                         firstSpoller: {
-                            title: 'What kind of equipment is needed for the farm?',
+                            title: 'What equipment to choose and where to buy it?',
                             description: '<ul>'
                                 + '<li>USB modems: Huawei E3372H-153, E3372H-607;</li>'
                                 + '<li>USB hubs: industrial ORICO, Bipolar, or analogs based on a power supply of 10 watts per 1 port;</li>'
@@ -84,8 +86,9 @@ i18next
                                 + '</ul>'
                         },
                         secondSpoller: {
-                            title: 'How many modems do I need to start?',
-                            description: 'From 10 to 30. If there are more modems, then their use is coordinated individually depending on geolocation.',
+                            title: 'What is the income from one SIM card?',
+                            description: 'To look at the level of income from one SIM card. please follow the link <a href="https://smshuborg/partners"> https://smshuborg/partners</a>'
+                                + 'The sum is calculated regarding our commission, but the SIM cards purchase price wasn’t counted\n',
                         },
                         thirdSpolller: {
                             title: 'What tariff is required on SIM cards?',
@@ -113,14 +116,14 @@ i18next
                     footer: {
                         linksTop: {
                             link_1: 'Become a partner',
-                            link_2: 'Question/Answer',
+                            link_2: 'FAQ',
                         },
                         linkBottom: {
                             link_1: 'Project Rules',
                             link_2: 'Public offer',
                             link_3: 'Service Regulations',
                         },
-                        textSocialNetwork: 'write to us:'
+                        textSocialNetwork: 'Contact us:'
                     }
                 }
             },

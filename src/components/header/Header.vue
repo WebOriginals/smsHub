@@ -4,7 +4,6 @@ header.header(ref="header" )
     a.header__logo(href="/")
       picture
         source(srcset="@/img/svg/logo-header.svg" media="(min-width: 601px)" type="image/svg+xml")
-        //source(v-if="showWhitLogo" srcset="../../assets/img/svg/logo-header-white.svg" media="(min-width: 601px)" type="image/svg+xml")
         source(srcset="@/img/svg/logo-header-m.svg" media="(max-width: 600.99px)" type="image/svg+xml")
         img(src='@/img/svg/logo-header.svg' alt='logo SmsHub')
 
@@ -17,7 +16,7 @@ header.header(ref="header" )
 
 
     .header__language(data-da=".header__menu,992,2")
-      v-select.leng(v-model="selected" :options="arrayForSelect" label="text" :searchable="false" @change="change($event.target.value)")
+      v-select.leng( @input="setSelected" :value="selected" v-model="selected" :options="arrayForSelect" label="text" :searchable="false")
         template(#selected-option="{ img, text }")
           .leng-title
             img(:src="img" style="max-width:38px")
@@ -25,7 +24,8 @@ header.header(ref="header" )
         template(#option="{ img, text }" )
           .oprion-row(style="display: flex; align-items: center; gap: 15px")
             img(:src="img" style="max-width:38px")
-
+      select(@change="setSelected($event.target.value)")
+        option(v-for="leng in arrayForSelect" :value="leng.value") {{ leng.text }}
 
     .menu__icon(@click="showMenuOnMobile" ref="menu__icon")
       span
@@ -35,6 +35,7 @@ header.header(ref="header" )
 import {bodyLockStatus, bodyLockToggle} from "../../assets/js/files/functions.js";
 import {DynamicAdapt} from "../../assets/js/libs/dynamic_adapt.js";
 import vSelect from 'vue-select';
+import $i18next from "i18next";
 
 const Select = [
   {text: 'Russia', img: "public/assets/img/png/russia.png", value: 'ru'},
@@ -62,8 +63,8 @@ export default {
         {id: 1, path: "mainForm", name: "Стать партнёром"},
         {id: 2, path: "ask", name: "Вопрос/Ответ"},
       ],
-      showWhitLogo: false,
-      lang: "en",
+
+
     }
   },
 
@@ -106,8 +107,11 @@ export default {
     },
 
 
-    change(lang){
-      this.lang = lang;
+    setSelected(value){
+      console.log(value)
+      if($i18next.resolvedLanguage !== value){
+        $i18next.changeLanguage(value)
+      }
     }
   },
 

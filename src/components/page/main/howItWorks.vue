@@ -89,10 +89,10 @@ export default {
             &:before {
               content: '';
               position: absolute;
-              width: 120px;
+              width: 130px;
               height: 2px;
               border-top: 2px dotted $mainColor;
-              transform: rotate(-55deg) translateY(-39px) translateX(34px);
+              transform: rotate(-62deg) translateY(-50px) translateX(40px);
               animation: connectionAppearances 1s linear 1 normal 2.5s forwards;
               opacity: 0;
             }
@@ -111,7 +111,7 @@ export default {
               height: 2px;
               border-top: 2px dotted $mainColor;
               opacity: 0;
-              transform: rotate(-92deg) translateY(-33px) translateX(44px);
+              transform: rotate(-100deg) translateY(-33px) translateX(47px);
               animation: connectionAppearances 1s linear 1 normal 4s forwards;
             }
 
@@ -129,7 +129,7 @@ export default {
               height: 2px;
               opacity: 0;
               border-top: 2px dotted $mainColor;
-              transform: rotate(74deg) translateY(16px) translateX(-32px);
+              transform: rotate(62deg) translateY(16px) translateX(-32px);
               animation: connectionAppearances 1s linear 1 normal 6s forwards;
             }
 
@@ -161,6 +161,7 @@ export default {
 
     li {
       position: relative;
+      min-height: rem(145);
 
       &:before {
         content: counter(num);
