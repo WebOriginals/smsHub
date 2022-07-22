@@ -56,7 +56,8 @@ i18next
                     map: {
                         title: '<span>Our</span> Geo',
                         description: 'We can work with any country, any operator and any amount of numbers',
-                        titleList: '<span>TOP-10</span> <br>of Agent Countries by earning for the previous day'
+                        titleList: '<span>TOP-10</span> <br>of Agent Countries by earning for the previous day',
+
                     },
                     mainForm: {
                         title: 'Become <span>SMSHUB partner</span>',
@@ -88,7 +89,10 @@ i18next
                         secondSpoller: {
                             title: 'What is the income from one SIM card?',
                             description: 'To look at the level of income from one SIM card. please follow the link <a href="https://smshuborg/partners"> https://smshuborg/partners</a>'
-                                + 'The sum is calculated regarding our commission, but the SIM cards purchase price wasn’t counted\n',
+                                + 'The sum is calculated regarding our commission, but the SIM cards purchase price wasn’t counted.'
+                                + ' <br> Income depends on the market conjuncture, SIM cards quality and current supply/demand of numbers for services. '
+                                + ' You can see how income has been changing during the period you are interested in.'
+                                + ' On average a SIM card gets a full check for 24-96 hours of work. This is the period when most of its services are sold. After that you need to replace it with a new one.',
                         },
                         thirdSpolller: {
                             title: 'What tariff is required on SIM cards?',
@@ -124,6 +128,17 @@ i18next
                             link_3: 'Service Regulations',
                         },
                         textSocialNetwork: 'Contact us:'
+                    },
+                    modal: {
+                        title: 'Application',
+                        subtitle: 'Please fill in all the fields below',
+                        secondTitle: 'What equipment will you use?',
+                        radioBtn: {
+                            radio_1: 'GSM gateway',
+                            radio_2: 'I don\'t have the equipment',
+                            radio_3: 'Providing numbers via API',
+                        },
+                        textBtn: 'Send'
                     }
                 }
             },
@@ -240,6 +255,17 @@ i18next
                             link_3: 'Положение о сервисе',
                         },
                         textSocialNetwork: 'напишите нам:'
+                    },
+                    modal: {
+                        title: 'Заявка',
+                        subtitle: 'Пожалуйста, заполните все поля ниже',
+                        secondTitle: 'Какое оборудование будете использовать?',
+                        radioBtn: {
+                            radio_1: 'GSM шлюз',
+                            radio_2: 'У меня нет оборудования',
+                            radio_3: 'Предоставление номеров по API',
+                        },
+                        textBtn: 'отправить заявку'
                     }
                 }
             }

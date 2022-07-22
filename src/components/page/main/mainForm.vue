@@ -10,16 +10,18 @@ section.mainForm#mainForm(ref="mainForm")
       .mainForm__call
         label(for="email") {{ $t('mainForm.labelEmail') }}
         input.input#email(ref="formEmail" placeholder="Name@mail.ru" name="email" v-model="email" @change="formEmailValid" required)
-        //span(v-if="v$.state.email.$error") {{ v$.email.$errors[0].$message }}
+
       .mainForm__call
         label(for="telegram") {{ $t('mainForm.labelTelegram') }}
         input.input#telegram(ref="formTelegram" placeholder="+7 (9... или @user" name="telegram" v-model="telegram" minlength="2" maxlength="50" @change="formTelegramValid" required)
       .mainForm__call
         label {{ $t('mainForm.labelSelectedCountry') }}
-        v-select.form-select(class="vs__search" multiple v-model="selectedCountry" name="equipment" :options="country" label="text" )
+        v-select.form-select(v-if="$i18next.resolvedLanguage === 'ru'" class="vs__search" multiple v-model="selectedCountry" name="equipment" :options="country" label="text" )
+        v-select.form-select(v-else class="vs__search" multiple v-model="selectedCountryEN" name="equipment" :options="countryEN" label="text" )
       .mainForm__call
         label {{ $t('mainForm.labelSelectedEquipment') }}
-        v-select.form-select(v-model="selectedEquipment" name="equipment" :options="equipment" label="text" )
+        v-select.form-select(v-if="$i18next.resolvedLanguage === 'ru'" v-model="selectedEquipment" name="equipment" :options="equipment" label="text" )
+        v-select.form-select(v-else v-model="selectedEquipmentEN" name="equipment" :options="equipmentEN" label="text" )
       .mainForm__call
         label {{ $t('mainForm.labelQuantityPorts') }}
         input.input#quantityPorts(placeholder="2" type="number"  name="quantityPorts" v-model="quantityPorts")
@@ -41,10 +43,22 @@ const SelectEquipment = [
   {text: 'Дорогое', value: 'expensive'},
 ];
 
+const SelectEquipmentEN = [
+  {text: 'Cheap', value: 'low'},
+  {text: 'Medium', value: 'average'},
+  {text: 'Expensive', value: 'expensive'},
+];
+
 const SelectCountry = [
   {text: 'Россия', value: 'ru'},
   {text: 'Терция', value: 'tu'},
   {text: 'Грузия', value: 'gr'},
+];
+
+const SelectCountryEN = [
+  {text: 'Russia', value: 'ru'},
+  {text: 'Turkey', value: 'tu'},
+  {text: 'Georgia', value: 'gr'},
 ];
 
 
@@ -61,11 +75,15 @@ export default {
     return {
 
       equipment: SelectEquipment,
+      equipmentEN: SelectEquipmentEN,
       //Selected для селекта
       selectedEquipment: SelectEquipment[0],
+      selectedEquipmentEN: SelectEquipmentEN[0],
 
       country: SelectCountry,
+      countryEN: SelectCountryEN,
       selectedCountry: SelectCountry[0],
+      selectedCountryEN: SelectCountryEN[0],
 
       name: "",
       email: "",

@@ -157,6 +157,7 @@ body.popup-show::after {
       display: grid;
       grid-gap: rem(16);
       margin-top: rem(15);
+      width: 100%;
 
       .input {
         &::placeholder {

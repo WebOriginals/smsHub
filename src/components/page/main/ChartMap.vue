@@ -6,8 +6,11 @@ section.map
     .map__content.map-content
       .map-content__list
         b(v-html="$t('map.titleList')")
-        ol
+        ol(v-if="$i18next.resolvedLanguage === 'ru'")
           li(v-for="country in listCountries")
+            .fl <span>{{ country.Country}}</span> <span>{{country.number}}</span>
+        ol(v-else)
+          li(v-for="country in listCountriesEN")
             .fl <span>{{ country.Country}}</span> <span>{{country.number}}</span>
 
       #chartdiv.map-content__map
@@ -27,7 +30,7 @@ export default {
   data() {
     return {
       listCountries: [
-        {Country:'Малайзия ', number:'139 082,72 р'},
+        {Country:'Малайзия', number:'139 082,72 р'},
         {Country:'Китай', number:'104 517,70 р'},
         {Country:'Англия', number:'66 255,09 р'},
         {Country:'Россия', number:'62 888,64 р'},
@@ -37,6 +40,18 @@ export default {
         {Country:'Бразилия', number:'38 894,16 р'},
         {Country:'Нидерланды', number:'38 731,54 р'},
         {Country:'Португалия', number:'38 179,95 р'},
+      ],
+      listCountriesEN: [
+        {Country:'Malaysia', number:'139 082,72 р'},
+        {Country:'China', number:'104 517,70 р'},
+        {Country:'England', number:'66 255,09 р'},
+        {Country:'Russia', number:'62 888,64 р'},
+        {Country:'Germany', number:'56 452,12 р'},
+        {Country:'Spain', number:'54 561,02 р'},
+        {Country:'Poland', number:'40 134,59 р'},
+        {Country:'Brazil', number:'38 894,16 р'},
+        {Country:'Niederladny', number:'38 731,54 р'},
+        {Country:'Portugal', number:'38 179,95 р'},
       ]
     };
   },
