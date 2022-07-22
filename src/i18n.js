@@ -77,44 +77,31 @@ i18next
                         title: '<span>FAQ</span>',
                         firstSpoller: {
                             title: 'What equipment to choose and where to buy it?',
-                            description: '<ul>'
-                                + '<li>USB modems: Huawei E3372H-153, E3372H-607;</li>'
-                                + '<li>USB hubs: industrial ORICO, Bipolar, or analogs based on a power supply of 10 watts per 1 port;</li>'
-                                + '<li>Dedicated server for working only with mobile proxies;</li>'
-                                + '<li>OS Windows 10 x64 Pro, 4-core processor or higher, RAM from 4GB; SSD;</li>'
-                                + '<li>Installed Anydesk for remote access;</li>'
-                                + '<li>Connected wired internet with dedicated static IP;</li>'
-                                + '</ul>'
+                            description: '<p>To work with us, you can use GSM modems, GoIP and single-SIM 3G'
+                                + ' modems. There is also a possibility to cooperate through API.</p>'
                         },
                         secondSpoller: {
-                            title: 'What is the income from one SIM card?',
-                            description: 'To look at the level of income from one SIM card. please follow the link <a href="https://smshuborg/partners"> https://smshuborg/partners</a>'
-                                + 'The sum is calculated regarding our commission, but the SIM cards purchase price wasn’t counted.'
-                                + ' <br> Income depends on the market conjuncture, SIM cards quality and current supply/demand of numbers for services. '
-                                + ' You can see how income has been changing during the period you are interested in.'
-                                + ' On average a SIM card gets a full check for 24-96 hours of work. This is the period when most of its services are sold. After that you need to replace it with a new one.',
+                            title: 'Where to buy SIM cards?',
+                            description: '<p>Unfortunately, we are not dealing with the purchase of SIM cards.'
+                                + ' If you want to cooperate with us, it means that you already have a communication channel for buying SIM cards.</p>',
                         },
                         thirdSpolller: {
-                            title: 'What tariff is required on SIM cards?',
-                            description: 'SIM cards with unlimited tariffs with the possibility of distributing the Internet.',
+                            title: 'What is an average income per month?',
+                            description: '<p>This type of activity is not prohibited by law in the Russian Federation.'
+                            + '<br> If you live in another country, then we recommend checking the legislation of your'
+                            +' country in the field of using the mobile network and precisely the sections related to the receiving incoming SMS.</p>',
                         },
                         fourthSpolller: {
-                            title: 'Can traffic from SIM cards be used in illegal activities?',
-                            description: 'No. We programmatically restrict access to such resources.',
+                            title: 'Is it really safe?',
+                            description: '<p>No. We programmatically restrict access to such resources.</p>',
                         },
                         fifthSpolller: {
-                            title: 'How is the withdrawal of funds carried out?',
-                            description: '<p>Withdrawal of funds is carried out at any time in the personal account and is available for the following systems: </p>'
-                                + '<br> <ul>'
-                                + '<li>Sberbank of the Russian Federation — 2%, minimum withdrawal amount - 51,000₽</li>'
-                                + '<li>inkoff — 2%, minimum withdrawal amount - 51,000₽</li>'
-                                + '<li>PerfectMoney — 0%, minimum withdrawal amount - 250₽</li>'
-                                + '<li>Payeer — 2%, minimum withdrawal amount - 5,000₽</li>'
-                                + '<li>FreeKassa Wallet — 1%, minimum withdrawal amount - 250₽</li>'
-                                + '<li>AdvCash — 3%, minimum withdrawal amount - 50,000₽</li>'
-                                + '<li>Bitcoin — 3%, minimum withdrawal amount - 10,000₽</li>'
-                                + '<li>Tether USDT TRC-20 - 2%, minimum withdrawal amount - 10,000₽</li>'
-                                + '</ul>',
+                            title: 'What is the income from one SIM card?',
+                            description: '<p>To look at the level of income from one SIM card. please follow the link <a href="https://smshub.org/partners">https://smshub.org/partners</a>'
+                                + '<br><br> The sum is calculated regarding our commission, but the SIM cards purchase price wasn’t counted.'
+                                + '<br><br> Income depends on the market conjuncture, SIM cards quality and current supply/demand of numbers for services.'
+                                + 'You can see how income has been changing during the period you are interested in. On average a SIM card gets a full '
+                                +' check for 24-96 hours of work. This is the period when most of its services are sold. After that you need to replace it with a new one.</p>',
                         },
                     },
                     footer: {
@@ -207,41 +194,33 @@ i18next
                     ask: {
                         title: 'Часто задаваемые <span>вопросы</span>',
                         firstSpoller: {
-                            title: 'Какое оборудование нужно для фермы?',
-                            description: '<ul>'
-                            + '<li>USB-модемы: Huawei e3372h-153, e3372h-607;</li>'
-                            + '<li>USB-хабы: промышленные ORICO, Sipolar, или аналоги из расчета питания 10 ватт на 1 порт;</li>'
-                            + '<li>Выделенный сервер под работу только с мобильными прокси;</li>'
-                            + '<li>ОС Windows 10x64 Pro, 4-х ядерный процессор или выше, RAM от 4GB; SSD;</li>'
-                            + '<li>Установленный Anydesk для удаленного доступа;</li>'
-                            + '<li>Подключенный проводной интернет с выделенным статическим IP;</li>'
-                            + '</ul>'
+                            title: 'Какое оборудование и где купить?',
+                            description: '<p>Для работы с нами можно использовать GSM модемы, GoIP и 3g модемы (односимочные).'
+                                + 'Так же есть возможность сотрудничества по API.</p>'
                         },
                         secondSpoller: {
-                            title: 'Какое количество модемов нужно для старта?',
-                            description: 'От 10 до 30. Если модемов больше, то их использование согласовывается индивидуально в зависимости от геолокации.',
+                            title: 'Где купить симкарты?',
+                            description: '<p>К сожалению, но сами мы не занимаемся покупкой сим-карт.'
+                                + 'Сотрудничество с нами - подразумевает, что у вас уже есть канал связи для покупки сим-карт.</p>',
                         },
                         thirdSpolller: {
-                            title: 'Какой тариф требуется на сим-картах?',
-                            description: 'Сим-карты с безлимитными тарифами с возможностью раздачи интернета.',
+                            title: ' Какой заработок, в целом, за месяц?',
+                            description: '<p>Все зависит от страны сим-карт, которые Вы планируете предоставлять.'
+                                + 'Со средним заработком можете ознакомится на нашем лэндинге (ссылка)</p>',
                         },
                         fourthSpolller: {
-                            title: 'Может ли трафик с сим-карт использоваться в незаконных действиях?',
-                            description: 'Нет. Мы программно ограничиваем доступ к подобным ресурсам.',
+                            title: 'На сколько это безопасно?',
+                            description: '<p>На территории РФ, данный вид деятельности - не запрещен законом.'
+                                + 'Если вы проживаете в другой стране, то рекомендуем проверить законодательство'
+                                + ' вашей страны в сфере использования мобильной сети - именно разделы, связанные с приемом входящих смс.</p>',
                         },
                         fifthSpolller: {
-                            title: 'Как осуществляется вывод средств?',
-                            description: '<p>Вывод средств осуществляется в любое время в личном кабинете и доступен для следующих систем: </p>'
-                            + '<br> <ul>'
-                            + '<li>Сбербанк РФ — 2%, минимальная сумма вывода - 51,000₽</li>'
-                            + '<li>Tinkoff — 2%, минимальная сумма вывода - 51,000₽</li>'
-                            + '<li>PerfectMoney — 0%,  минимальная сумма вывода - 250₽</li>'
-                            + '<li>Payeer — 2%,  минимальная сумма вывода - 5,000₽</li>'
-                            + '<li>FreeKassa Wallet — 1%,  минимальная сумма вывода - 250₽</li>'
-                            + '<li>AdvCash — 3%, минимальная сумма вывода - 50,000₽</li>'
-                            + '<li>Bitcoin — 3%, минимальная сумма вывода - 10,000₽</li>'
-                            + '<li>Tether USDT TRC-20 - 2%, минимальная сумма вывода - 10,000₽</li>'
-                            + '</ul>',
+                            title: 'Какой заработок одной симкарты?',
+                            description: '<p>Для просмотра уровня прибыли с одной SIM-карты перейдите по ссылке: <a href="https://smshub.org/partners">https://smshub.org/partners</a>'
+                            + '<br><br> Сумма рассчитана уже с вычетом нашей комиссии, но без учета закупочной цены самих сим-карт'
+                            + '<br><br> Заработок зависит от конъюнктуры рынка, качества SIM-карт и текущего спроса/предложения номеров на сервисы.\n'
+                            + '<br><br> Можете посмотреть как менялся заработок от интересуемого Вами периода.\n'
+                            + 'В среднем, сим карта набирает полный чек за 24-96 часов работы, за этот период времени распродается большинство сервисов на ней. После этого ее необходимо заменить на новую.</p>',
                         },
                     },
                     footer: {
