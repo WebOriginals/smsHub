@@ -14,10 +14,6 @@ header.header(ref="header" )
         li( @click="onHandlerClick('ask')")
           .menu__link {{ $t('header.link_2') }}
 
-
-
-    //form.header__language(data-da=".header__menu,992,2")
-    //  select-beta(@update:modelValue="setSelected")
     form.header__language(data-da=".header__menu,992,2")
       v-select.leng(
         @update:modelValue="setSelected"
@@ -47,7 +43,7 @@ import {bodyLockStatus, bodyLockToggle} from "../../assets/js/files/functions.js
 import {DynamicAdapt} from "../../assets/js/libs/dynamic_adapt.js";
 import vSelect from 'vue-select';
 import $i18next from "i18next";
-import VueNextSelect from "vue-next-select";
+
 
 
 const Select = [
@@ -59,8 +55,7 @@ export default {
   name: "Header",
 
   components: {
-    vSelect,
-    VueNextSelect,
+    vSelect
   },
 
   data() {
