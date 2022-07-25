@@ -18,6 +18,7 @@
     "i18next-browser-languagedetector": "^6.1.4",
     "i18next-vue": "^2.0.0-beta.2",
     "vue": "^3.2.33",
+    "vue-next-select": "^2.10.4",
     "vue-select": "4.0.0-beta.3",
     "vue3-apexcharts": "^1.4.1"
   },

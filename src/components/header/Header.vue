@@ -15,19 +15,13 @@ header.header(ref="header" )
           .menu__link {{ $t('header.link_2') }}
 
 
-    .header__language(data-da=".header__menu,992,2")
-      v-select.leng( @input="setSelected" :value="selected" v-model="selected" :options="arrayForSelect" label="text" :searchable="false")
-        template(#selected-option="{ img, text }")
-          .leng-title
-            img(:src="img" style="max-width:38px")
-            span(style="color:#fff")  {{ text }}
-        template(#option="{ img, text }" )
-          .oprion-row(style="display: flex; align-items: center; gap: 15px")
-            img(:src="img" style="max-width:38px")
-      select(@change="setSelected($event.target.value)")
-        option(v-for="leng in arrayForSelect" :value="leng.value") {{ leng.text }}
 
-    .menu__icon(@click="showMenuOnMobile" ref="menu__icon")
+    form.header__language(data-da=".header__menu,992,2")
+      select-beta(@update:modelValue="setSelected")
+
+
+
+    .menu__icon(@click="showMenuOnMobile"  ref="menu__icon")
       span
 </template>
 
@@ -36,35 +30,27 @@ import {bodyLockStatus, bodyLockToggle} from "../../assets/js/files/functions.js
 import {DynamicAdapt} from "../../assets/js/libs/dynamic_adapt.js";
 import vSelect from 'vue-select';
 import $i18next from "i18next";
+import VueNextSelect from "vue-next-select";
+import SelectBeta from "../select_beta/SelectBeta.vue";
 
-const Select = [
-  {text: 'Russia', img: "public/assets/img/png/russia.png", value: 'ru'},
-  {text: 'Usa', img: "public/assets/img/png/united-states.png", value: 'en'},
-];
-
-export default {
+export default{
   name: "Header",
+
   components: {
-    vSelect
+    SelectBeta,
+    vSelect,
+    VueNextSelect,
   },
 
   data() {
     return {
-      //Пропс class для селекта
-      classNameSelect: 'language',
-      //Пропс языков для селекта
-      arrayForSelect: Select,
-      //Selected для селекта
-      selected: Select[0],
-      //
       da: '',
       linksTop: [
         {id: 0, path: "calculator", name: "Калькулятор дохода"},
         {id: 1, path: "mainForm", name: "Стать партнёром"},
         {id: 2, path: "ask", name: "Вопрос/Ответ"},
       ],
-
-
+      language: 'ru'
     }
   },
 
@@ -105,7 +91,6 @@ export default {
         this.scrollTo(elementScrollTo)
       }
     },
-
 
     setSelected(value){
       console.log(value)
