@@ -5,7 +5,7 @@ import LanguageDetector from "i18next-browser-languagedetector";
 i18next
     .use(LanguageDetector)
     .init({
-        debug: true,
+        debug: false,
         fallbackLng: 'ru',
         resources: {
             en: {
