@@ -3,9 +3,19 @@ header.header(ref="header" )
   .header__container
     a.header__logo(href="/")
       picture
-        source(srcset="@/img/svg/logo-header.svg" media="(min-width: 601px)" type="image/svg+xml")
-        source(srcset="@/img/svg/logo-header-m.svg" media="(max-width: 600.99px)" type="image/svg+xml")
-        img(src='@/img/svg/logo-header.svg' alt='logo SmsHub')
+        source(
+          srcset="@/img/svg/logo-header.svg"
+          media="(min-width: 601px)"
+          type="image/svg+xml"
+          )
+        source(
+          srcset="@/img/svg/logo-header-m.svg"
+          media="(max-width: 600.99px)"
+          type="image/svg+xml"
+          )
+        img(src='@/img/svg/logo-header.svg'
+          alt='logo SmsHub'
+          )
 
     nav.header__menu.menu__body(ref="menu__body")
       ul(ref="menu__links")
@@ -44,8 +54,6 @@ import {DynamicAdapt} from "../../assets/js/libs/dynamic_adapt.js";
 import vSelect from 'vue-select';
 import $i18next from "i18next";
 
-
-
 const Select = [
   {text: 'Russia', img: "public/assets/img/png/russia.png", value: 'ru'},
   {text: 'Usa', img: "public/assets/img/png/united-states.png", value: 'en'},
@@ -66,9 +74,12 @@ export default {
         {id: 1, path: "mainForm", name: "Стать партнёром"},
         {id: 2, path: "ask", name: "Вопрос/Ответ"},
       ],
+
       language: 'ru',
+
       //Пропс языков для селекта
       arrayForSelect: Select,
+
       //Selected для селекта
       selected: Select[0],
     }
@@ -112,14 +123,13 @@ export default {
       }
     },
 
+    //получаем яцык с селекта
     setSelected(value) {
       this.language = value.value;
       if ($i18next.resolvedLanguage !== this.language) {
         $i18next.changeLanguage(this.language)
       }
     },
-
-
   },
 
   mounted() {

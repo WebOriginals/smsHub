@@ -30,10 +30,7 @@ export default {
 
   data () {
     return {
-      languages: {
-        en: { nativeName: 'English' },
-        ru: { nativeName: 'Русский' }
-      }
+
     }
   },
 
@@ -45,9 +42,9 @@ export default {
 
   methods: {
     onHandlerClick(index) {
-      console.log(index)
+
       const elementScrollTo = document.getElementById(index);
-      console.log(elementScrollTo)
+
       elementScrollTo.scrollIntoView({
         block: "center",
         inline: "nearest",

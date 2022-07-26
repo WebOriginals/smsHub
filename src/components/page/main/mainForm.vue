@@ -28,14 +28,11 @@ section.mainForm#mainForm(ref="mainForm")
 
       button.button-e.button-height(type="submit" @click="submitForm") {{ $t('mainForm.textBtn') }}
 
-
 </template>
 
 <script>
 import vSelect from 'vue-select';
 import OpenIndicator from 'vue-select/src/components/OpenIndicator.vue';
-
-
 
 const SelectEquipment = [
   {text: 'Дешовое', value: 'low'},
@@ -76,6 +73,7 @@ export default {
 
       equipment: SelectEquipment,
       equipmentEN: SelectEquipmentEN,
+
       //Selected для селекта
       selectedEquipment: SelectEquipment[0],
       selectedEquipmentEN: SelectEquipmentEN[0],
@@ -133,10 +131,6 @@ export default {
       telegram.reportValidity();
     },
 
-    submitForm(){
-
-      //alert(name)
-    }
   }
 }
 </script>
