@@ -11,6 +11,8 @@ section.calculator#calculator(ref="calculator")
         v-select.selectCountry(v-model="selected" :options="arrayForSelect" label="text" )
         input.input.calculator__input(placeholder="Стоимость sim-карты" type="number" v-model="simPrice")
         label.calculator__label Средняя стоимость: 24руб
+        p.calculator__p-green.mt-15 Количество замен
+        v-select.selectCountry(v-model="selected2" :options="arrayForSelect2" label="text" )
         no-ui-slider
         button.button-g Рассчитать
     .calculator__chart.chart
@@ -18,10 +20,26 @@ section.calculator#calculator(ref="calculator")
       .chart__body
         apexchart(type="radialBar" height="362" :options="RadialbarsChart.chartOptions" :series="RadialbarsChart.series")
       ul.chart__list
-        li(v-for="record in chart__list")
-          .point(:style="record.color")
-          span {{record.name}}
-          span {{record.number}}
+        li
+          .point(style="background: #64AF59")
+          span Небходимое кол-во sim-карт:
+          span {{ this.selected2.value.toLocaleString('ru-RU') }} шт.
+        li
+          .point(style="background: #F7C401")
+          span Чистая прибыть одной sim-карты за {{this.sliderValue}} месяцев:
+          span {{ profitOneSim }}
+        li
+          .point(style="background: #98E5FB")
+          span Окупаемость оборудования:
+          span {{ payback }} мес.
+        li
+          .point(style="background: #9265BE")
+          span Доход за {{this.sliderValue}} месяцев:
+          span  {{ profitPeriod.toLocaleString('ru-RU') }} ₽
+        li
+          .point(style="background: #444B8C")
+          span Чистая прибыль за {{this.sliderValue}} месяцев:
+          span {{ netIncome.toLocaleString('ru-RU') }} ₽
 
 
 </template>
@@ -35,6 +53,12 @@ const Select = [
   {text: 'Russia', value: 'ru'},
   {text: 'Usa', value: 'en'},
   {text: 'canada', value: 'can'},
+];
+
+const numberReplacements = [
+  {text: '1 раз в дня', value: '992'},
+  {text: '1 раз в два дня', value: '496'},
+  {text: '1 раз в три дня', value: '331'},
 ];
 
 export default {
@@ -51,15 +75,13 @@ export default {
       //Пропс стран для селекта
       arrayForSelect: Select,
       //Selected для селекта
-      selected: Select[1],
-      //Подробнапя инвормация под графиком
-      chart__list:[
-        {id: 0, color: {background: "#64AF59"}, name: 'Небходимое кол-во sim-карт:', number: '100 шт'},
-        {id: 1, color: {background: "#F7C401"}, name: 'Чистая прибыть одной sim-карты: ', number: '1000 руб'},
-        {id: 2, color: {background: "#98E5FB"}, name: 'Окупаемость оборудования:', number: '10000 руб'},
-        {id: 3, color: {background: "#9265BE"}, name: 'Доход за 19 месяцев:', number: '50000 руб'},
-        {id: 4, color: {background: "#444B8C"}, name: 'Чистая прибыль за 19 месяцев: ', number: '45000 руб'},
-      ],
+      selected: Select[0],
+
+      //Пропс стран для селекта
+      arrayForSelect2: numberReplacements,
+      //Selected для селекта
+      selected2: numberReplacements[1],
+
       //Настройки графика. Инструкцию настроек смотри https://apexcharts.com/docs/options/#
       RadialbarsChart: {
         series: [90, 80, 60, 50, 45],
@@ -100,11 +122,50 @@ export default {
           labels: ['Ч.П. 19 М', 'Д 19 М', 'О.О', 'Ч.П. 1 Sim', 'Н.К. Sim'],
         },
       },
-      simPrice: "",
+      simPrice: "40",
+      sliderValue: 5,
     }
   },
 
-  methods:{}
+  methods:{},
+
+  computed:{
+
+    // примерная стоимость всех сим (колличество * цену за 1шт)
+    priceAllSim() {
+      return this.selected2.value * this.simPrice
+    },
+
+    //чистая прибыль 1 сим  за выбранный период (ццена за сим * (средний чек = 80р) * период
+    profitOneSim() {
+      return this.simPrice * 80 * this.sliderValue
+    },
+
+    // затраты (стоимость всех сим + модем + пк + интернет + электроэнергия)
+    expenses(){
+      return this.priceAllSim + 30000 + 10000 + 1000 + 4000
+    },
+
+    //прибыль (общее кол-во сим * (средний чек = 80р) - примерная стоимость всех сим
+    profit(){
+      return this.selected2.value * 80 - this.priceAllSim
+    },
+
+    //окупаемость (затраты / прибыль и округленные в большую сторону)
+    payback() {
+      return  Math.ceil(this.expenses / this.profit)
+    },
+
+    //доход за период ( прибыль * период)
+    profitPeriod() {
+      return this.profit * this.sliderValue
+    },
+
+    // чистая прибыль за период ( доход за период - затраты )
+    netIncome(){
+      return this.profitPeriod - this.expenses
+    }
+  }
 }
 </script>
 
@@ -162,6 +223,10 @@ export default {
     font-weight: 600;
     @include adaptiveValue(font-size, 14, 14);
     margin-bottom: rem(10);
+
+    &.mt-15{
+      margin-top: 15px;
+    }
   }
 
   &__input{
@@ -248,6 +313,7 @@ export default {
   .selectCountry .vs__open-indicator {
     fill: #394066;
   }
+
   .selectCountry {
     .vs__dropdown-toggle {
       height: rem(56);
