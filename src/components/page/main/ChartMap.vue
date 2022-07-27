@@ -7,11 +7,11 @@ section.map
       .map-content__list
         b(v-html="$t('map.titleList')")
         ol(v-if="$i18next.resolvedLanguage === 'ru'")
-          li(v-for="country in listCountries")
-            .fl <span>{{ country.Country}}</span> <span>{{country.number}}</span>
+          li(v-for="country in listCountries" :key="country.id")
+            .fl <span>{{ country.nameRU}}</span> <span>{{country.value.toLocaleString('ru-RU')}} ₽</span>
         ol(v-else)
-          li(v-for="country in listCountriesEN")
-            .fl <span>{{ country.Country}}</span> <span>{{country.number}}</span>
+          li(v-for="country in listCountries" :key="country.id")
+            .fl <span>{{ country.nameEN}}</span> <span>{{country.value.toLocaleString('en-EN')}} $</span>
 
       #chartdiv.map-content__map
 
@@ -30,32 +30,21 @@ export default {
   data() {
     return {
       listCountries: [
-        {Country:'Малайзия', number:'139 082,72 р'},
-        {Country:'Китай', number:'104 517,70 р'},
-        {Country:'Англия', number:'66 255,09 р'},
-        {Country:'Россия', number:'62 888,64 р'},
-        {Country:'Германия', number:'56 452,12 р'},
-        {Country:'Испания', number:'54 561,02 р'},
-        {Country:'Польша', number:'40 134,59 р'},
-        {Country:'Бразилия', number:'38 894,16 р'},
-        {Country:'Нидерланды', number:'38 731,54 р'},
-        {Country:'Португалия', number:'38 179,95 р'},
+        {id: "MY", nameRU: 'Малайзия', nameEN: 'Malaysia', value: 139082},
+        {id: "CN", nameRU: 'Китай', nameEN: 'China',  value: 104517},
+        {id: "GB", nameRU: 'Англия', nameEN: 'England', value: 66255},
+        {id: "RU", nameRU: 'Россия', nameEN: 'Russia', value: 62888},
+        {id: "DE", nameRU: 'Германия', nameEN: 'Germany', value: 56452},
+        {id: "ES", nameRU: 'Испания', nameEN: 'Spain',  value: 54561},
+        {id: "PL", nameRU: 'Польша', nameEN: 'Poland', value: 40134},
+        {id: "BR", nameRU: 'Бразилия', nameEN: 'Brazil', value: 38894},
+        {id: "NL", nameRU: 'Нидерланды', nameEN: 'Niederladny', value: 38731},
+        {id: "PT", nameRU: 'Португалия', nameEN: 'Portugal', value: 38179},
       ],
-      listCountriesEN: [
-        {Country:'Malaysia', number:'139 082,72 р'},
-        {Country:'China', number:'104 517,70 р'},
-        {Country:'England', number:'66 255,09 р'},
-        {Country:'Russia', number:'62 888,64 р'},
-        {Country:'Germany', number:'56 452,12 р'},
-        {Country:'Spain', number:'54 561,02 р'},
-        {Country:'Poland', number:'40 134,59 р'},
-        {Country:'Brazil', number:'38 894,16 р'},
-        {Country:'Niederladny', number:'38 731,54 р'},
-        {Country:'Portugal', number:'38 179,95 р'},
-      ]
     };
   },
   mounted() {
+    let countries = this.listCountries;
     am5.ready(function() {
 
       let root = am5.Root.new("chartdiv");
@@ -97,19 +86,7 @@ export default {
       });
 
       //я по этой карте искал id стран https://www.artlebedev.ru/country-list/
-      polygonSeries.data.setAll([
-        { id: "MY", value: 139082 },
-        { id: "CN", value: 104517 },
-        { id: "GB", value: 66255 },
-        { id: "RU", value: 62888 },
-        { id: "DE", value: 56452 },
-        { id: "ES", value: 54561 },
-        { id: "PL", value: 40134 },
-        { id: "BR", value: 38894 },
-        { id: "NL", value: 38731 },
-        { id: "PT", value: 38179 },
-      ]);
-
+      polygonSeries.data.setAll(countries);
 
       let heatLegend = chart.children.push(am5.HeatLegend.new(root, {
         orientation: "vertical",

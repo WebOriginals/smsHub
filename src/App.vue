@@ -37,7 +37,7 @@ export default {
     <main class="page main" >
       <First></First>
       <how-it-works></how-it-works>
-<!--      <calculator></calculator>-->
+      <calculator></calculator>
       <main-indicators></main-indicators>
       <ChartMap></ChartMap>
       <main-form></main-form>
