@@ -13,7 +13,9 @@ section.calculator#calculator(ref="calculator")
         label.calculator__label Средняя стоимость: 24руб
         p.calculator__p-green.mt-15 Количество замен
         v-select.selectCountry(v-model="selected2" :options="arrayForSelect2" label="text" )
-        no-ui-slider
+        no-ui-slider(@sliser="tt")
+
+
         button.button-g Рассчитать
     .calculator__chart.chart
       .chart__title Результаты
@@ -49,6 +51,7 @@ import NoUiSlider from "../../noUiSlider/noUiSlider.vue";
 import VueApexCharts from "vue3-apexcharts";
 import vSelect from 'vue-select';
 
+
 const Select = [
   {text: 'Russia', value: 'ru'},
   {text: 'Usa', value: 'en'},
@@ -67,6 +70,7 @@ export default {
     vSelect,
     NoUiSlider,
     apexchart: VueApexCharts,
+
   },
   data() {
     return {
@@ -127,7 +131,12 @@ export default {
     }
   },
 
-  methods:{},
+  methods:{
+    tt(event){
+      console.log('event');
+      console.log(event)
+    }
+  },
 
   computed:{
 
