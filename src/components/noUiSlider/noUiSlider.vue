@@ -13,30 +13,30 @@ import '../../assets/js/libs/wNumb.min'
 export default {
   name: "noUiSlider",
   data() {
-    return {
+    return  {
       numericSliderResult: 2,
       min: 0,
       max: 36,
       start: 2,
-      step: 1
+      step: 1,
     }
   },
 
-  computed: {
+  methods: {
     up(){
       let stepSliderValueElement = document.getElementById('numericSliderResult');
+      let range = 0;
       this.$refs.range.noUiSlider.on('update', function (values, handle) {
-        this.numericSliderResult = Math.round(values[handle]);
-        stepSliderValueElement.innerHTML = this.numericSliderResult;
-        console.log(this.numericSliderResult)
+        range = Math.round(values[handle]);
+        stepSliderValueElement.innerHTML = range;
       });
+      //console.log('range' + range)
+      this.numericSliderResult = range;
+      //console.log(this.numericSliderResult)
+      return this.$emit('sliser', this.numericSliderResult)
     }
   },
   mounted() {
-
-    let stepSliderValueElement = document.getElementById('numericSliderResult');
-    let period = '';
-
     noUiSlider.create(this.$refs.range, {
       start: this.start,
       step: this.step,
@@ -47,12 +47,10 @@ export default {
         'max': this.max
       }
     });
-
-    // this.$refs.range.noUiSlider.on('update', function (values, handle) {
-    //     this.numericSliderResult = Math.round(values[handle]);
-    //   stepSliderValueElement.innerHTML = this.numericSliderResult;
-    //   // console.log(this.numericSliderResult)
-    // });
+    let stepSliderValueElement = document.getElementById('numericSliderResult');
+    this.$refs.range.noUiSlider.on('update', function (values, handle) {
+      stepSliderValueElement.innerHTML = Math.round(values[handle]);
+    });
   }
 }
 </script>

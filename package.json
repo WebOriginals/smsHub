@@ -12,7 +12,6 @@
     "@amcharts/amcharts5": "^5.2.6",
     "@amcharts/amcharts5-fonts": "^5.0.1",
     "@amcharts/amcharts5-geodata": "^5.0.3",
-    "@vueform/vueform": "^1.2.8",
     "apexcharts": "^3.35.3",
     "express": "^4.18.1",
     "i18next": "^21.8.14",

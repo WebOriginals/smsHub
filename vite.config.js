@@ -10,20 +10,8 @@ const locals = {name: "My Pug"}
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [vue({
-        template: {
-            compilerOptions: {
-                isCustomElement: (tag) => ['trix-editor'].indexOf(tag) !== -1
-            }
-        },
-    }), pugPlugin(options, locals)],
-    optimizeDeps: {
-        include: [
-            'nouislider',
-            'wnumb',
-            'trix'
-        ]
-    },
+    plugins: [vue(), pugPlugin(options, locals)],
+
     resolve: {
         alias: {
             // '@': fileURLToPath(new URL('./src', import.meta.url))
