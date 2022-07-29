@@ -13,7 +13,7 @@ section.calculator#calculator(ref="calculator")
         label.calculator__label Средняя стоимость: 24руб
         p.calculator__p-green.mt-15 Количество замен
         v-select.selectCountry(v-model="selected2" :options="arrayForSelect2" label="text" )
-        no-ui-slider(@sliser="tt")
+        no-ui-slider(@slider="getValueSlider")
 
 
         button.button-g Рассчитать
@@ -28,7 +28,7 @@ section.calculator#calculator(ref="calculator")
           span {{ this.selected2.value.toLocaleString('ru-RU') }} шт.
         li
           .point(style="background: #F7C401")
-          span Чистая прибыть одной sim-карты за {{this.sliderValue}} месяцев:
+          span Чистая прибыть одной sim-карты за {{this.periodValue}} месяцев:
           span {{ profitOneSim }}
         li
           .point(style="background: #98E5FB")
@@ -36,11 +36,11 @@ section.calculator#calculator(ref="calculator")
           span {{ payback }} мес.
         li
           .point(style="background: #9265BE")
-          span Доход за {{this.sliderValue}} месяцев:
+          span Доход за {{this.periodValue}} месяцев:
           span  {{ profitPeriod.toLocaleString('ru-RU') }} ₽
         li
           .point(style="background: #444B8C")
-          span Чистая прибыль за {{this.sliderValue}} месяцев:
+          span Чистая прибыль за {{this.periodValue}} месяцев:
           span {{ netIncome.toLocaleString('ru-RU') }} ₽
 
 
@@ -50,7 +50,7 @@ section.calculator#calculator(ref="calculator")
 import NoUiSlider from "../../noUiSlider/noUiSlider.vue";
 import VueApexCharts from "vue3-apexcharts";
 import vSelect from 'vue-select';
-
+import axios from "axios"
 
 const Select = [
   {text: 'Russia', value: 'ru'},
@@ -59,9 +59,9 @@ const Select = [
 ];
 
 const numberReplacements = [
-  {text: '1 раз в дня', value: '992'},
-  {text: '1 раз в два дня', value: '496'},
-  {text: '1 раз в три дня', value: '331'},
+  {text: '1 раз в дня', value: 992},
+  {text: '1 раз в два дня', value: 496},
+  {text: '1 раз в три дня', value: 331},
 ];
 
 export default {
@@ -70,7 +70,7 @@ export default {
     vSelect,
     NoUiSlider,
     apexchart: VueApexCharts,
-
+    axios
   },
   data() {
     return {
@@ -126,16 +126,15 @@ export default {
           labels: ['Ч.П. 19 М', 'Д 19 М', 'О.О', 'Ч.П. 1 Sim', 'Н.К. Sim'],
         },
       },
-      simPrice: "40",
-      sliderValue: 5,
+      simPrice: 40,
+      periodValue: 5,
+
     }
   },
 
   methods:{
-    tt(event){
-      console.log('event');
-      console.log(event)
-      this.sliderValue = event;
+    getValueSlider(event){
+      this.periodValue = event;
     }
   },
 
@@ -146,9 +145,9 @@ export default {
       return this.selected2.value * this.simPrice
     },
 
-    //чистая прибыль 1 сим  за выбранный период (ццена за сим * (средний чек = 80р) * период
+    //чистая прибыль 1 сим  за выбранный период (цена за сим * (средний чек) * период
     profitOneSim() {
-      return this.simPrice * 80 * this.sliderValue
+      return this.simPrice * 80 * this.periodValue
     },
 
     // затраты (стоимость всех сим + модем + пк + интернет + электроэнергия)
@@ -156,9 +155,13 @@ export default {
       return this.priceAllSim + 30000 + 10000 + 1000 + 4000
     },
 
-    //прибыль (общее кол-во сим * (средний чек = 80р) - примерная стоимость всех сим
+    //прибыль (общее кол-во сим * (средний чек 1 сим) - примерная стоимость всех сим
     profit(){
-      return this.selected2.value * 80 - this.priceAllSim
+      let result = this.selected2.value * 80 - this.priceAllSim
+      if(result === 0){
+
+      }
+      return result
     },
 
     //окупаемость (затраты / прибыль и округленные в большую сторону)
@@ -168,13 +171,18 @@ export default {
 
     //доход за период ( прибыль * период)
     profitPeriod() {
-      return this.profit * this.sliderValue
+      return this.profit * this.periodValue
     },
 
     // чистая прибыль за период ( доход за период - затраты )
     netIncome(){
       return this.profitPeriod - this.expenses
     }
+  },
+  mounted() {
+    // axios.defaults.headers.common['origin'] = 'localhost'
+    axios.get('http://194.87.80.71:8080/https://smshub.org/api.php?cat=scripts&act=getSmsStats&slice=1440&dateFrom=2022-07-28&dateTo=2022-07-27&country=1&mobileOperator=0')
+        .then(response => this.listCountries = response.data.data, e => console.log(e))
   }
 }
 </script>

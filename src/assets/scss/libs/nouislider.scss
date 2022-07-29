@@ -91,10 +91,10 @@
 	height: 18px;
 }
 .noUi-horizontal .noUi-handle {
-	width: 15px;
-	height: 15px;
-	right: -2.5px;
-	top: -7px;
+	width: 20px;
+	height: 20px;
+	right: -10.5px;
+	top: -9px;
 }
 .noUi-vertical {
 	width: 18px;
@@ -113,7 +113,7 @@
  * Giving the connect element a border radius causes issues with using transform: scale
  */
 .noUi-target {
-	height: 3px;
+	height: 4px;
 	background-color: #F5F5F5;
 	margin: 0px 11px 50px;
 	position: relative;
@@ -122,7 +122,7 @@
 		content: "";
 		background-color: #F5F5F5;
 		width: 11px;
-		height: 3px;
+		height: 4px;
 		position: absolute;
 		top: 0;
 	}
