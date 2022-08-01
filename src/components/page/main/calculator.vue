@@ -33,7 +33,7 @@ section.calculator#calculator(ref="calculator")
           span {{ profitOneSim }}
         li
           .point(style="background: #98E5FB")
-          span Окупаемость оборудования:
+          span Точка безубыточности:
           span {{ payback }} мес.
         li
           .point(style="background: #9265BE")
@@ -43,10 +43,7 @@ section.calculator#calculator(ref="calculator")
           .point(style="background: #444B8C")
           span Чистая прибыль за {{this.periodValue}} месяцев:
           span {{ netIncome.toLocaleString('ru-RU') }} ₽
-        li
-          .point(style="background: #444B8C")
-          span 34242:
-          span {{ averagePrice }} ₽
+
 
 
 </template>
@@ -196,7 +193,7 @@ export default {
 
       simPrice: 40,
       periodValue: 5,
-      averagePrice: 40,
+      averagePrice: 80,
     }
   },
 
@@ -226,9 +223,7 @@ export default {
 
     //прибыль (общее кол-во сим * (средний чек 1 сим) - примерная стоимость всех сим
     profit() {
-      let result = this.selectedReplacement.value * this.averagePrice - this.priceAllSim
-
-      return result
+      return this.selectedReplacement.value * this.averagePrice - this.priceAllSim
     },
 
     //окупаемость (затраты / прибыль и округленные в большую сторону)
@@ -246,7 +241,7 @@ export default {
       return this.profitPeriod - this.expenses
     },
 
-    //чистая прибыль в %
+    //чистая прибыль в %  (прибыль / затраты) * 100
     profitPercentage() {
       this.RadialbarsChart.series = [Math.ceil((this.profit / this.expenses) * 100)]
       return this.RadialbarsChart.series
@@ -255,6 +250,8 @@ export default {
     //получение среднего числа
     averagePrice(){
       const AP = dat.chartData.data[0].values;
+      const AP1 = dat.chartData.data[1].values;
+      const AP2 = dat.chartData.data[2].values;
       const average = array => array.reduce((a, b) => +a + +b) / array.length;
       return this.averagePrice = Math.ceil(average(AP));
     }
