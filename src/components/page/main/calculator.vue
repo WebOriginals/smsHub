@@ -34,6 +34,7 @@ section.calculator#calculator(ref="calculator")
           .point(style="background: #F7C401")
           span(v-html="$t('calculator.simLine2')")
           span {{ profitOneSim }}
+
         li(v-if="$i18next.resolvedLanguage === 'ru'")
           .point(style="background: #98E5FB")
           span Точка безубыточности:
@@ -125,7 +126,6 @@ export default {
       //Selected для селекта
       selectedReplacement: numberReplacements[1],
 
-      netIncomeValue: [0],
       //Настройки графика. Инструкцию настроек смотри https://apexcharts.com/docs/options/#
       RadialbarsChart: {
         series: [0],
@@ -218,12 +218,18 @@ export default {
   methods: {
     getValueSlider(event) {
       this.periodValue = event;
-    },
-
+    }
   },
 
-  computed: {
-
+  computed:{
+    //получение среднего числа
+    averagePrice(){
+      const AP = dat.chartData.data[0].values;
+      const AP1 = dat.chartData.data[1].values;
+      const AP2 = dat.chartData.data[2].values;
+      const average = array => array.reduce((a, b) => +a + +b) / array.length;
+      return this.averagePrice = Math.ceil(average(AP2));
+    },
     // примерная стоимость всех сим (колличество * цену за 1шт)
     priceAllSim() {
       return this.selectedReplacement.value * this.simPrice
@@ -231,12 +237,14 @@ export default {
 
     //чистая прибыль 1 сим  за выбранный период (цена за сим * (средний чек) * период
     profitOneSim() {
-      return this.simPrice * this.averagePrice * this.periodValue
+      let profitOneSimValue = 80 * this.periodValue - this.simPrice;
+      if(profitOneSimValue <= 0){ profitOneSimValue = 0 }
+      return profitOneSimValue
     },
 
-    // затраты (стоимость всех сим + модем + пк + интернет + электроэнергия)
-    expenses() {
-      return this.priceAllSim + 30000 + 10000 + 1000 + 4000
+    // затраты (модем + пк + интернет + электроэнергия)
+    expenses(){
+      return 30000 + 10000 + 1000 + 4000
     },
 
     //прибыль (общее кол-во сим * (средний чек 1 сим) - примерная стоимость всех сим
@@ -246,45 +254,43 @@ export default {
 
     //окупаемость (затраты / прибыль и округленные в большую сторону)
     payback() {
-      return Math.ceil(this.expenses / this.profit)
+      let paybackValue = Math.ceil(this.expenses / this.profit);
+      if(paybackValue === Infinity){ paybackValue = 'не рейнтабильно' } else if(paybackValue < 0) { paybackValue = 'не рейнтабильно' }
+      return  paybackValue
     },
 
     //доход за период ( прибыль * период)
     profitPeriod() {
-      return this.profit * this.periodValue
+      let profitPeriodValue = this.profit * this.periodValue;
+      if(profitPeriodValue <= 0) { profitPeriodValue = 0 }
+      return profitPeriodValue
     },
 
     // чистая прибыль за период ( доход за период - затраты )
-    netIncome() {
-      return this.profitPeriod - this.expenses
+    netIncome(){
+      let netIncomeValue = this.profitPeriod - this.priceAllSim
+      if(netIncomeValue <= 0){ netIncomeValue = 0 }
+
+      return netIncomeValue
     },
 
     //чистая прибыль в %  (прибыль / затраты) * 100
     profitPercentage() {
-      this.RadialbarsChart.series = [Math.ceil((this.profit / this.expenses) * 100)]
+      setTimeout(() => {
+         this.RadialbarsChart.series = [Math.ceil((this.profit / this.expenses) * 100)];
+      }, "1000");
       return this.RadialbarsChart.series
     },
-
-    //получение среднего числа
-    averagePrice(){
-      const AP = dat.chartData.data[0].values;
-      const AP1 = dat.chartData.data[1].values;
-      const AP2 = dat.chartData.data[2].values;
-      const average = array => array.reduce((a, b) => +a + +b) / array.length;
-      return this.averagePrice = Math.ceil(average(AP));
-    }
-
   },
   mounted() {
-    //axios.defaults.headers.common['origin'] = 'localhost'
+    // axios.defaults.headers.common['origin'] = 'localhost'
     // axios.get('http://194.87.80.71:8080/https://smshub.org/api.php?cat=scripts&act=getSmsStats&slice=1440&dateFrom=2022-07-28&dateTo=2022-07-27&country=1&mobileOperator=0')
     //     .then(response => this.listCountries = response.data.data, e => console.log(e))
-
-  },
+  }
 }
 </script>
 
-<style lang="scss">
+<style  lang="scss">
 @import '../../../assets/scss/style.scss';
 
 .lending .calculator {
@@ -298,11 +304,9 @@ export default {
   @include maq('tablet') {
     background: url("../../../../public/assets/img/svg/bg-chart2.svg") no-repeat center / cover;
   }
-
   &__container {
     display: grid;
     grid-gap: rem(100);
-
 
     @include mq('tablet') {
       grid-template-columns: 1fr 1fr;
@@ -341,41 +345,40 @@ export default {
     @include adaptiveValue(font-size, 14, 14);
     margin-bottom: rem(10);
 
-    &.mt-15 {
+    &.mt-15{
       margin-top: 15px;
     }
   }
 
-  &__input {
+  &__input{
     width: 100%;
     margin-top: rem(20);
-
-    &::placeholder {
+    &::placeholder{
       color: #989898;
     }
   }
 
-  &__label {
+  &__label{
     font-size: rem(14);
     font-style: italic;
     color: #989898;
   }
 
-  .body-range {
+  .body-range{
     margin-top: rem(20);
   }
 
-  .range__text {
+  .range__text{
     margin-right: rem(10);
     color: $color_4;
     font-weight: 600;
   }
 
-  .range {
+  .range{
     margin-top: rem(30);
   }
 
-  .chart__title {
+  .chart__title{
     color: $color_4;
     @include adaptiveValue(font-size, 20, 20);
     font-weight: 700;
@@ -384,39 +387,35 @@ export default {
     text-transform: uppercase;
   }
 
-  .chart__list {
+  .chart__list{
     display: grid;
     grid-gap: rem(20);
-
-    li {
+    li{
       display: grid;
       grid-gap: rem(10);
       grid-template-columns: 15px 2fr 1fr;
       align-items: center;
     }
-
-    .point {
+    .point{
       width: 15px;
       height: 15px;
       border-radius: 50%;
     }
-
-    span {
+    span{
       color: $color_1;
-
-      &:last-child {
+      &:last-child{
         margin-left: auto;
       }
     }
 
   }
 
-  .apexcharts-datalabels-group {
+  .apexcharts-datalabels-group{
     height: 100px !important;
     position: relative;
     display: block;
 
-    #SvgjsText2020 {
+    #SvgjsText2020{
       y: 130;
     }
   }
@@ -440,8 +439,7 @@ export default {
     .vs__dropdown-toggle {
       height: rem(56);
     }
-
-    .vs__selected {
+    .vs__selected{
       padding-left: rem(20);
       font-size: 18px;
       font-weight: 700;

@@ -19,7 +19,7 @@ export default {
       numericSliderResult: 2,
       min: 0,
       max: 36,
-      start: 6,
+      start: 1,
       step: 1,
     }
   },
