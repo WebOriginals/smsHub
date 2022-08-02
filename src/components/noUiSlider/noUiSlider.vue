@@ -1,6 +1,8 @@
 <template lang="pug">
 .body-range
-  span.range__text Период работы:
+  span.range__text(v-if="$i18next.resolvedLanguage === 'ru'") Период работы:
+  span.range__text(v-else ) Period of operation:
+
   span#numericSliderResult {{ this.numericSliderResult }}
   #range.range(ref='range')
 

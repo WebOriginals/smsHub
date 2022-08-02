@@ -5,7 +5,7 @@ import LanguageDetector from "i18next-browser-languagedetector";
 i18next
     .use(LanguageDetector)
     .init({
-        debug: false,
+        debug: true,
         fallbackLng: 'ru',
         resources: {
             en: {
@@ -13,6 +13,7 @@ i18next
                     header:{
                         link_1: 'Become a partner',
                         link_2: 'FAQ',
+                        link_3: 'Personal cabinet',
                     },
                     secFirst:{
                         title: '<span>EARN </span> ON SIM CARDS',
@@ -24,21 +25,21 @@ i18next
                         mainDescription: {
                             title: 'How <span>does it work</span>?',
                             description: 'Every time when users from all over the world'
-                            + 'receive codes for registration on millions of services from “Amazon”'
-                            + 'and “Nike” to “Facebook” and “Telegram” through your SIM cards every day,'
-                            + ' <b>you get money for that.</b>'
-                            + '<br> <br> All repetitive and monotonous actions have been automotized by our software, due to which'
-                            + '<b>everything you will need to do is to control your SIM cards replacement.</b>'
+                                + 'receive codes for registration on millions of services from “Amazon”'
+                                + 'and “Nike” to “Facebook” and “Telegram” through your SIM cards every day,'
+                                + ' <b>you get money for that.</b>'
+                                + '<br> <br> All repetitive and monotonous actions have been automotized by our software, due to which'
+                                + '<b>everything you will need to do is to control your SIM cards replacement.</b>'
                         },
                         firstDescription: {
                             title: 'Make a request and get your equipment connected',
                             description: 'Our manager will consult you on any questions that you are interested in, they wil'
-                            + ' tell you where to buy and how to set the equipment.'
+                                + ' tell you where to buy and how to set the equipment.'
                         },
                         secondDescription: {
                             title: 'Replace SIM cards in the system and earn',
                             description: 'On average <b> aa SIM card can earn up to 60 rubles per 12 hours. </b>'
-                            + 'Clients purchase numbers and you get 75% of their spendings. The more cards you have the higher is your income.'
+                                + 'Clients purchase numbers and you get 75% of their spendings. The more cards you have the higher is your income.'
                         },
                         thirdDescription: {
                             title: 'Get earned money',
@@ -73,6 +74,17 @@ i18next
                         labelQuantityPorts: 'Number of ports',
                         textBtn: 'Submit',
                     },
+                    calculator:{
+                        title: 'Income Calculator',
+                        subTitle: 'Calculate your income by a couple of clicks',
+                        description: 'Indicate the country and cost of the SIM card.\n' +
+                            'Then we will do everything for you!\n' +
+                            'Change the period and see how the income grows.\n',
+                        simLine1: 'Necessary quantity of SIM cards',
+                        simLine2: 'Net profit of one SIM card',
+                        simLine3: 'Equipment payback',
+
+                    },
                     ask: {
                         title: '<span>FAQ</span>',
                         firstSpoller: {
@@ -88,8 +100,8 @@ i18next
                         thirdSpolller: {
                             title: 'What is an average income per month?',
                             description: '<p>This type of activity is not prohibited by law in the Russian Federation.'
-                            + '<br> If you live in another country, then we recommend checking the legislation of your'
-                            +' country in the field of using the mobile network and precisely the sections related to the receiving incoming SMS.</p>',
+                                + '<br> If you live in another country, then we recommend checking the legislation of your'
+                                +' country in the field of using the mobile network and precisely the sections related to the receiving incoming SMS.</p>',
                         },
                         fourthSpolller: {
                             title: 'Is it really safe?',
@@ -134,6 +146,7 @@ i18next
                     header:{
                         link_1: 'Стать партнёром',
                         link_2: 'Вопрос/Ответ',
+                        link_3: 'Личный кабинет',
                     },
                     secFirst:{
                         title: '<span>ЗАРАБАТЫВАЙ </span> НА СИМ-КАРТАХ',
@@ -158,7 +171,7 @@ i18next
                         secondDescription: {
                             title: 'Меняйте SIM-карты в системе и зарабатывайте',
                             description: 'В среднем за <b>12 часов сим-карта может заработать до 60 рублей.</b>  '
-                            + 'Клиенты покупают номера, а вы получаете до 75% от их покупок. Чем больше карт- тем больше прибыль.'
+                                + 'Клиенты покупают номера, а вы получаете до 75% от их покупок. Чем больше карт- тем больше прибыль.'
                         },
                         thirdDescription: {
                             title: 'Получайте заработанные средства',
@@ -181,8 +194,8 @@ i18next
                     mainForm: {
                         title: 'Стать партнёром <span>SMSHUB</span>',
                         description: '<b>Не тратьте время и деньги на работу с сайтами и кодированием</b> — мы сосредоточены на задачах вашего бизнеса и'
-                        + ' поэтому создали простую, удобную и эффективную платформу для заработка на сим-картах. <br> <span> <b>Просто заполните форму'
-                        + ' и отправьте заявку на подключение</b></span>',
+                            + ' поэтому создали простую, удобную и эффективную платформу для заработка на сим-картах. <br> <span> <b>Просто заполните форму'
+                            + ' и отправьте заявку на подключение</b></span>',
                         labelName: 'Ваше имя',
                         labelEmail: 'Ваш e-mail*',
                         labelTelegram: 'Телеграм*',
@@ -190,6 +203,16 @@ i18next
                         labelSelectedEquipment: 'Какое у вас оборудование?',
                         labelQuantityPorts: 'Количество портов',
                         textBtn: 'отправить заявку',
+                    },
+                    calculator:{
+                        title: 'Калькулятор дохода',
+                        subTitle: 'Узнай свой доход за пару кликов',
+                        description: 'Укажите страну и стоимость сим карты. Дальше мы всё сделаем за Вас Меняй период и наблюдай как растёт доход',
+                        simLine1: 'Небходимое кол-во sim-карт:',
+                        simLine2: 'Чистая прибыть одной sim-карты за период:',
+                        simLine3: 'Точка безубыточности:',
+
+
                     },
                     ask: {
                         title: 'Часто задаваемые <span>вопросы</span>',
@@ -217,10 +240,10 @@ i18next
                         fifthSpolller: {
                             title: 'Какой заработок одной симкарты?',
                             description: '<p>Для просмотра уровня прибыли с одной SIM-карты перейдите по ссылке: <a href="https://smshub.org/partners">https://smshub.org/partners</a>'
-                            + '<br><br> Сумма рассчитана уже с вычетом нашей комиссии, но без учета закупочной цены самих сим-карт'
-                            + '<br><br> Заработок зависит от конъюнктуры рынка, качества SIM-карт и текущего спроса/предложения номеров на сервисы.\n'
-                            + '<br><br> Можете посмотреть как менялся заработок от интересуемого Вами периода.\n'
-                            + 'В среднем, сим карта набирает полный чек за 24-96 часов работы, за этот период времени распродается большинство сервисов на ней. После этого ее необходимо заменить на новую.</p>',
+                                + '<br><br> Сумма рассчитана уже с вычетом нашей комиссии, но без учета закупочной цены самих сим-карт'
+                                + '<br><br> Заработок зависит от конъюнктуры рынка, качества SIM-карт и текущего спроса/предложения номеров на сервисы.\n'
+                                + '<br><br> Можете посмотреть как менялся заработок от интересуемого Вами периода.\n'
+                                + 'В среднем, сим карта набирает полный чек за 24-96 часов работы, за этот период времени распродается большинство сервисов на ней. После этого ее необходимо заменить на новую.</p>',
                         },
                     },
                     footer: {

@@ -1,47 +1,65 @@
 <template lang="pug">
 section.calculator#calculator(ref="calculator")
   .calculator__container
-    h2.calculator__title Калькулятор <span>дохода</span>
+    h2.calculator__title(v-html="$t('calculator.title')")
     .calculator__content
-      .calculator__h2 Узнай свой доход за пару кликов
-      p.calculator__p Укажите страну и стоимость сим карты. Дальше мы всё сделаем за Вас Меняй период и наблюдай как растёт доход
+      .calculator__h2(v-html="$t('calculator.subTitle')")
+      p.calculator__p(v-html="$t('calculator.description')")
 
 
       form
-        p.calculator__p-green Страна
+        p.calculator__p-green(v-if="$i18next.resolvedLanguage === 'ru'") Страна
+        p.calculator__p-green(v-else) A country
         v-select.selectCountry(v-model="selectedCountry" :options="arrayForSelectCountry" label="text" )
         input.input.calculator__input(placeholder="Стоимость sim-карты" type="number" v-model="simPrice")
 
-        p.calculator__p-green.mt-15 Количество замен
+        p.calculator__p-green.mt-15(v-if="$i18next.resolvedLanguage === 'ru'") Количество замен
+        p.calculator__p-green.mt-15(v-else) Number of substitutions
         v-select.selectCountry(v-model="selectedReplacement" :options="arrayForSelectReplacement" label="text" )
         no-ui-slider(@slider="getValueSlider")
 
 
 
     .calculator__chart.chart
-      .chart__title Результаты
+      .chart__title(v-if="$i18next.resolvedLanguage === 'ru'") Результаты
+      .chart__title(v-else) Results
       .chart__body
         apexchart(type="radialBar" height="362" :options="RadialbarsChart.chartOptions" :series="RadialbarsChart.series")
       ul.chart__list
         li
           .point(style="background: #64AF59")
-          span Небходимое кол-во sim-карт:
+          span(v-html="$t('calculator.simLine1')")
           span {{ this.selectedReplacement.value.toLocaleString('ru-RU') }} шт.
         li
           .point(style="background: #F7C401")
-          span Чистая прибыть одной sim-карты за {{this.periodValue}} месяцев:
+          span(v-html="$t('calculator.simLine2')")
           span {{ profitOneSim }}
-        li
+        li(v-if="$i18next.resolvedLanguage === 'ru'")
           .point(style="background: #98E5FB")
           span Точка безубыточности:
           span {{ payback }} мес.
-        li
+        li(v-else)
+          .point(style="background: #98E5FB")
+          span Break-even point:
+          span {{ payback }} m.
+
+        li(v-if="$i18next.resolvedLanguage === 'ru'")
           .point(style="background: #9265BE")
           span Доход за {{this.periodValue}} месяцев:
           span  {{ profitPeriod.toLocaleString('ru-RU') }} ₽
-        li
+
+        li(v-else)
+          .point(style="background: #9265BE")
+          span Income for {{this.periodValue}} m.:
+          span  {{ profitPeriod.toLocaleString('ru-RU') }} ₽
+
+        li(v-if="$i18next.resolvedLanguage === 'ru'")
           .point(style="background: #444B8C")
           span Чистая прибыль за {{this.periodValue}} месяцев:
+          span {{ netIncome.toLocaleString('ru-RU') }} ₽
+        li(v-else)
+          .point(style="background: #444B8C")
+          span Net profit for {{this.periodValue}} m.:
           span {{ netIncome.toLocaleString('ru-RU') }} ₽
 
 
