@@ -5,7 +5,7 @@ import LanguageDetector from "i18next-browser-languagedetector";
 i18next
     .use(LanguageDetector)
     .init({
-        debug: true,
+        debug: false,
         fallbackLng: 'ru',
         resources: {
             en: {
@@ -83,7 +83,7 @@ i18next
                         simLine1: 'Necessary quantity of SIM cards',
                         simLine2: 'Net profit of one SIM card',
                         simLine3: 'Equipment payback',
-
+                        label: 'Net profit'
                     },
                     ask: {
                         title: '<span>FAQ</span>',
@@ -211,7 +211,7 @@ i18next
                         simLine1: 'Небходимое кол-во sim-карт:',
                         simLine2: 'Чистая прибыть одной sim-карты за период:',
                         simLine3: 'Точка безубыточности:',
-
+                        label: 'Чистая прибыль'
 
                     },
                     ask: {

@@ -27,26 +27,34 @@ export default {
     Header,
     First
   },
-
+  data() {
+    return {
+      len: 'en'
+    }
+  },
+  methods: {
+    tt(post){
+      return this.len = post
+    }
+  }
 }
 </script>
 
-<template>
-  <div class="wrapper lending">
-    <Header></Header>
-    <main class="page main" >
-      <First></First>
-      <how-it-works></how-it-works>
-      <calculator></calculator>
-      <main-indicators></main-indicators>
-      <ChartMap></ChartMap>
-      <main-form></main-form>
-      <ask></ask>
-    </main>
-    <Footer></Footer>
-    <Thanks></Thanks>
-    <Application></Application>
-  </div>
+<template lang="pug">
+.wrapper.lending
+  Header(@lan="tt")
+  main.page.main
+    First
+    how-it-works
+    calculator(:language="this.len")
+    main-indicators
+    ChartMap
+    main-form
+    ask
+  main
+  Footer
+  Thanks
+  Application
 </template>
 
 <style>

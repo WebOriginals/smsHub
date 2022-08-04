@@ -53,12 +53,10 @@ import {bodyLockStatus, bodyLockToggle} from "../../assets/js/files/functions.js
 import {DynamicAdapt} from "../../assets/js/libs/dynamic_adapt.js";
 import vSelect from 'vue-select';
 import $i18next from "i18next";
-
 const Select = [
   {text: 'Russia', img: "public/assets/img/png/russia.png", value: 'ru'},
   {text: 'Usa', img: "public/assets/img/png/united-states.png", value: 'en'},
 ];
-
 export default {
   name: "Header",
 
@@ -126,9 +124,11 @@ export default {
     //получаем яцык с селекта
     setSelected(value) {
       this.language = value.value;
+
       if ($i18next.resolvedLanguage !== this.language) {
         $i18next.changeLanguage(this.language)
       }
+      this.$emit('lan', this.language);
     },
   },
 
@@ -151,12 +151,10 @@ export default {
     }
   },
 }
-
 </script>
 
 <style lang="scss">
 @import '../../assets/scss/style.scss';
-
 .lending {
 
   .menu__link {

@@ -6,25 +6,32 @@ section.calculator#calculator(ref="calculator")
       .calculator__h2(v-html="$t('calculator.subTitle')")
       p.calculator__p(v-html="$t('calculator.description')")
 
+      form.calculator__form
+        .form-wrapper
+          p.calculator__p-green(v-if="$i18next.resolvedLanguage === 'ru'") Страна
+          p.calculator__p-green(v-else) A country
+          v-select.selectCountry(v-model="selectedCountry" :options="arrayForSelectCountry" label="text" )
+        .form-wrapper
+          p.calculator__p-green(v-if="$i18next.resolvedLanguage === 'ru'") Стоимость sim-карты
+          p.calculator__p-green(v-else) SIM card cost
+          input.input.calculator__input(placeholder="Стоимость sim-карты" type="number" v-model="simPrice" minlength="1" maxlength="4")
+        .form-wrapper
+          p.calculator__p-green(v-if="$i18next.resolvedLanguage === 'ru'") Количество портов в мадеме
+          p.calculator__p-green(v-else) Number of ports in the modem
+          v-select.selectCountry(v-model="selectedNumberPortModem" :options="arrayForSelectNumberPortModem" label="text" )
+        .form-wrapper
+          p.calculator__p-green(v-if="$i18next.resolvedLanguage === 'ru'") Количество замен
+          p.calculator__p-green(v-else) Number of substitutions
+          v-select.selectCountry(v-model="selectedReplacement" :options="arrayForSelectReplacement" label="text" )
+        .form-wrapper
+          no-ui-slider(@slider="getValueSlider")
 
-      form
-        p.calculator__p-green(v-if="$i18next.resolvedLanguage === 'ru'") Страна
-        p.calculator__p-green(v-else) A country
-        v-select.selectCountry(v-model="selectedCountry" :options="arrayForSelectCountry" label="text" )
-        input.input.calculator__input(placeholder="Стоимость sim-карты" type="number" v-model="simPrice")
-
-        p.calculator__p-green.mt-15(v-if="$i18next.resolvedLanguage === 'ru'") Количество замен
-        p.calculator__p-green.mt-15(v-else) Number of substitutions
-        v-select.selectCountry(v-model="selectedReplacement" :options="arrayForSelectReplacement" label="text" )
-        no-ui-slider(@slider="getValueSlider")
-
-
-
+        button.button-g(@click.prevent="profitPercentage") расчитать чистую прибыль
     .calculator__chart.chart
       .chart__title(v-if="$i18next.resolvedLanguage === 'ru'") Результаты
       .chart__title(v-else) Results
       .chart__body
-        apexchart(type="radialBar" height="362" :options="RadialbarsChart.chartOptions" :series="RadialbarsChart.series")
+        apexchart(type="radialBar" height="362" :labels="['555']" :options="RadialbarsChart.chartOptions" :series="RadialbarsChart.series")
       ul.chart__list
         li
           .point(style="background: #64AF59")
@@ -37,12 +44,12 @@ section.calculator#calculator(ref="calculator")
 
         li(v-if="$i18next.resolvedLanguage === 'ru'")
           .point(style="background: #98E5FB")
-          span Точка безубыточности:
-          span {{ payback }} мес.
+          span Окупаемость оборудования :
+          span {{ payback }}
         li(v-else)
           .point(style="background: #98E5FB")
-          span Break-even point:
-          span {{ payback }} m.
+          span Payback of equipment:
+          span {{ payback }}
 
         li(v-if="$i18next.resolvedLanguage === 'ru'")
           .point(style="background: #9265BE")
@@ -62,7 +69,10 @@ section.calculator#calculator(ref="calculator")
           .point(style="background: #444B8C")
           span Net profit for {{this.periodValue}} m.:
           span {{ netIncome.toLocaleString('ru-RU') }} ₽
+        li.hid {{ profitPercentage }}
 
+
+p
 
 
 </template>
@@ -80,9 +90,18 @@ const SelectCountry = [
 ];
 
 const numberReplacements = [
-  {text: '1 раз в дня', value: 992},
-  {text: '1 раз в два дня', value: 496},
-  {text: '1 раз в три дня', value: 331},
+  {text: '1 раз в дня', value: 992 , replacement: 1},
+  {text: '1 раз в два дня', value: 496, replacement: 2},
+  {text: '1 раз в четыре дня', value: 248, replacement: 4},
+];
+
+const numberPortModem = [
+  {text: "8 портов", value: 8, price: 8484},
+  {text: "16 портов", value: 16, price: 8484},
+  {text: "32 порта", value: 32, price: 13008},
+  {text: "64 порта", value: 64, price: 42420},
+  {text: "128 портов", value: 128, price: 52032},
+  {text: "256 портов", value: 256, price: 104064},
 ];
 
 let dat = {
@@ -112,19 +131,32 @@ export default {
     apexchart: VueApexCharts,
     axios
   },
+  props: {
+    language: String
+  },
   data() {
     return {
+      counter:0,
       //Пропс class для селекта
       classNameSelect: 'country',
       //Пропс стран для селекта
       arrayForSelectCountry: SelectCountry,
       //Selected для селекта
       selectedCountry: SelectCountry[0],
-
       //Пропс стран для селекта
       arrayForSelectReplacement: numberReplacements,
       //Selected для селекта
       selectedReplacement: numberReplacements[1],
+      //массив для кол-ва портов
+      arrayForSelectNumberPortModem: numberPortModem,
+      //Selected для кол-ва портов
+      selectedNumberPortModem:numberPortModem[0],
+      //Цена покупки сим
+      simPrice: 40,
+      //Выбранный период
+      periodValue: 5,
+      //Средний прайс по 1 сим
+      averagePrice: 80,
 
       //Настройки графика. Инструкцию настроек смотри https://apexcharts.com/docs/options/#
       RadialbarsChart: {
@@ -209,16 +241,27 @@ export default {
         },
       },
 
-      simPrice: 40,
-      periodValue: 5,
-      averagePrice: 80,
+      //поревод текста
+      yaz: 'Чистая прибыль',
     }
   },
 
   methods: {
     getValueSlider(event) {
       this.periodValue = event;
-    }
+    },
+
+    //чистая прибыль в %  (прибыль / затраты) * 100
+    profitPercentage() {
+      this.RadialbarsChart.series = [Math.ceil((this.profit / this.expenses) * 100)];
+      //мах значение должно быть 100. мин 0
+      if(this.RadialbarsChart.series > 100) {
+        this.RadialbarsChart.series = [100]
+      } else if(this.RadialbarsChart.series < 0){
+        this.RadialbarsChart.series = [0]
+      }
+      return this.RadialbarsChart.series;
+    },
   },
 
   computed:{
@@ -228,23 +271,23 @@ export default {
       const AP1 = dat.chartData.data[1].values;
       const AP2 = dat.chartData.data[2].values;
       const average = array => array.reduce((a, b) => +a + +b) / array.length;
-      return this.averagePrice = Math.ceil(average(AP2));
+      return this.averagePrice = Math.ceil(average(AP));
     },
-    // примерная стоимость всех сим (колличество * цену за 1шт)
+  // примерная стоимость всех сим (колличество * цену за 1шт)
     priceAllSim() {
       return this.selectedReplacement.value * this.simPrice
     },
 
-    //чистая прибыль 1 сим  за выбранный период (цена за сим * (средний чек) * период
+    //чистая прибыль 1 сим за выбранный период ( средний чек - ценав сим  * период "выбирается из кол-ва замен")
     profitOneSim() {
-      let profitOneSimValue = 80 * this.periodValue - this.simPrice;
-      if(profitOneSimValue <= 0){ profitOneSimValue = 0 }
+      let profitOneSimValue = (this.averagePrice - this.simPrice) * this.selectedReplacement.replacement;
+      if(profitOneSimValue <= 0){ profitOneSimValue = profitOneSimValue + "₽ нерентабельно" }
       return profitOneSimValue
     },
 
     // затраты (модем + пк + интернет + электроэнергия)
     expenses(){
-      return 30000 + 10000 + 1000 + 4000
+      return this.selectedNumberPortModem.price + 10000 + 1000 + 4000
     },
 
     //прибыль (общее кол-во сим * (средний чек 1 сим) - примерная стоимость всех сим
@@ -255,7 +298,7 @@ export default {
     //окупаемость (затраты / прибыль и округленные в большую сторону)
     payback() {
       let paybackValue = Math.ceil(this.expenses / this.profit);
-      if(paybackValue === Infinity){ paybackValue = 'не рейнтабильно' } else if(paybackValue < 0) { paybackValue = 'не рейнтабильно' }
+      if(paybackValue === Infinity){ paybackValue = 'нерентабельно' } else if(paybackValue < 0) { paybackValue = 'нерентабельно' }
       return  paybackValue
     },
 
@@ -266,7 +309,7 @@ export default {
       return profitPeriodValue
     },
 
-    // чистая прибыль за период ( доход за период - затраты )
+    // чистая прибыль за период ( доход за период - цена всех сим )
     netIncome(){
       let netIncomeValue = this.profitPeriod - this.priceAllSim
       if(netIncomeValue <= 0){ netIncomeValue = 0 }
@@ -274,18 +317,21 @@ export default {
       return netIncomeValue
     },
 
-    //чистая прибыль в %  (прибыль / затраты) * 100
-    profitPercentage() {
-      setTimeout(() => {
-         this.RadialbarsChart.series = [Math.ceil((this.profit / this.expenses) * 100)];
-      }, "1000");
-      return this.RadialbarsChart.series
-    },
+    // изменения языка на графике
+    // labelChart(){
+    //   this.RadialbarsChart.chartOptions.labels = ['Чистая прибыль'];
+    //   if(this.language === 'en'){
+    //     this.RadialbarsChart.chartOptions.labels = ['Net profit'];
+    //   }
+    //   console.log(this.RadialbarsChart.chartOptions.labels)
+    //   return this.RadialbarsChart.chartOptions.labels
+    // }
   },
   mounted() {
     // axios.defaults.headers.common['origin'] = 'localhost'
-    // axios.get('http://194.87.80.71:8080/https://smshub.org/api.php?cat=scripts&act=getSmsStats&slice=1440&dateFrom=2022-07-28&dateTo=2022-07-27&country=1&mobileOperator=0')
-    //     .then(response => this.listCountries = response.data.data, e => console.log(e))
+    // axios.get('/api.php?cat=scripts&act=getSmsStats&slice=1440&dateFrom=2022-01-21&dateTo=2022-07-27&country=1&mobileOperator=0')
+    //     .then(response => this.listCountries = response.data.data, e => console.log(e));
+
   }
 }
 </script>
@@ -304,6 +350,15 @@ export default {
   @include maq('tablet') {
     background: url("../../../../public/assets/img/svg/bg-chart2.svg") no-repeat center / cover;
   }
+
+  &__form{
+    display: grid;
+    grid-gap: rem(15);
+
+    button.button-g{
+      margin-top: rem(30);
+    }
+  }
   &__container {
     display: grid;
     grid-gap: rem(100);
@@ -314,7 +369,7 @@ export default {
       align-items: center;
     }
     @include mq('desktop') {
-      grid-gap: rem(160);
+      grid-gap: rem(100);
     }
   }
 
@@ -352,7 +407,6 @@ export default {
 
   &__input{
     width: 100%;
-    margin-top: rem(20);
     &::placeholder{
       color: #989898;
     }
@@ -364,9 +418,6 @@ export default {
     color: #989898;
   }
 
-  .body-range{
-    margin-top: rem(20);
-  }
 
   .range__text{
     margin-right: rem(10);
@@ -393,7 +444,7 @@ export default {
     li{
       display: grid;
       grid-gap: rem(10);
-      grid-template-columns: 15px 2fr 1fr;
+      grid-template-columns: 15px 1.5fr 1fr;
       align-items: center;
     }
     .point{
@@ -444,6 +495,11 @@ export default {
       font-size: 18px;
       font-weight: 700;
     }
+  }
+
+  li.hid{
+    height: 0;
+    opacity: 0;
   }
 }
 </style>
