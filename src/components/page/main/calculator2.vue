@@ -37,7 +37,8 @@ section.calculator#calculator(ref="calculator")
         li
           .point(style="background: #64AF59")
           span(v-html="$t('calculator.simLine1')")
-          span {{ this.numberSimValue.toLocaleString('ru-RU') }} шт.
+          span {{ this.numberSimMonthValue.toLocaleString('ru-RU') }} шт.
+
         li
           .point(style="background: #F7C401")
           span(v-html="$t('calculator.simLine2')")
@@ -55,12 +56,13 @@ section.calculator#calculator(ref="calculator")
         li(v-if="$i18next.resolvedLanguage === 'ru'")
           .point(style="background: #9265BE")
           span Доход за {{this.periodValue}} месяцев:
-          span  {{ this.incomePeriodValue.toLocaleString('ru-RU') }} ₽
+          span  {{ this.profitPeriodDirtyValue.toLocaleString('ru-RU') }} ₽
 
         li(v-else)
           .point(style="background: #9265BE")
           span Income for {{this.periodValue}} m.:
-          span  {{ this.incomePeriodValue.toLocaleString('ru-RU') }} ₽
+          span  {{ this.profitPeriodDirtyValue.toLocaleString('ru-RU') }} ₽
+
 
         li(v-if="$i18next.resolvedLanguage === 'ru'")
           .point(style="background: #444B8C")
@@ -70,14 +72,13 @@ section.calculator#calculator(ref="calculator")
           .point(style="background: #444B8C")
           span Net profit for {{this.periodValue}} m.:
           span {{ this.netProfitPeriodValue.toLocaleString('ru-RU') }} ₽
-        li.hid {{ profitPercentage }}
-        li
-          div
-          span
-          span {{ averagePriceValue }}
 
+        //li.hid {{ profitPercentage }}
+      //  li
+      //    div
+      //    span
+      //    span {{ averagePriceValue }}
 
-p
 
 
 </template>
@@ -101,12 +102,12 @@ const numberReplacements = [
 ];
 
 const numberPortModem = [
-  {text: "8 портов", value: 8, price: 8484},
-  {text: "16 портов", value: 16, price: 8484},
-  {text: "32 порта", value: 32, price: 13008},
+  {text: "8 портов", value: 8, price: 8407},
+  {text: "16 портов", value: 16, price: 12891},
+  {text: "32 порта", value: 32, price: 25782},
   {text: "64 порта", value: 64, price: 42420},
-  {text: "128 портов", value: 128, price: 52032},
-  {text: "256 портов", value: 256, price: 104064},
+  {text: "128 портов", value: 128, price: 103128},
+  {text: "256 портов", value: 256, price: 206256},
 ];
 
 let dat = {
@@ -129,7 +130,7 @@ let dat = {
 }
 
 export default {
-  name: "calculator",
+  name: "calculator2",
   components: {
     vSelect,
     NoUiSlider,
@@ -139,11 +140,10 @@ export default {
   props: {
     language: String
   },
+
   data() {
     return {
-
-      //Пропс class для селекта
-      classNameSelect: 'country',
+      //-----selects-------
       //массив стран
       arrayForSelectCountry: SelectCountry,
       //Selected для стран
@@ -156,41 +156,9 @@ export default {
       arrayForSelectNumberPortModem: numberPortModem,
       //Selected для кол-ва портов
       selectedNumberPortModem:numberPortModem[0],
+      //-----select-------
 
-      //Цена покупки сим
-      simPrice: 40,
-
-      //Выбранный период
-      periodValue: 5,
-
-      //Средний прайс по 1 сим
-      averagePriceValue: 50,
-
-      //чистая прибыль 1 sim
-      netProfitOneSimValue: 0,
-
-      //окупаемость
-      paybackValue: 0,
-
-      //доход за период
-      incomePeriodValue: 0,
-
-      //чистая прибыль
-      netProfitPeriodValue: 0,
-
-      //скольео надо сим карт в месяц
-      numberSimValue: 0,
-
-      //Стоимость всех сим
-      priceAllSimValue: 0,
-
-      //затраты все
-      expensesValue: 0,
-
-      //
-      profitValue: 0,
-
-
+      //-----график-------
       //Настройки графика. Инструкцию настроек смотри https://apexcharts.com/docs/options/#
       RadialbarsChart: {
         series: [0],
@@ -273,16 +241,114 @@ export default {
           labels: ['Чистая прибыль'],
         },
       },
+      //-----график-------
 
-      //поревод текста
-      yaz: 'Чистая прибыль',
+
+
+      //кол-во сим карт в месяц
+      numberSimMonthValue: 0,
+
+      //Цена 1 сим
+      simPrice: 30,
+
+      //стоимость симкарт
+      costAllSimValue: 0,
+
+      //прибыль в месяц грязная
+      profitMonthDirtyValue: 0,
+
+      //Средний чек по 1 сим
+      averagePriceValue: 50,
+
+      //затраты
+      expensesValue: 0,
+
+      //прибыль в месяц грязная
+      profitMonthValue: 0,
+
+      //прибыль за период грязная
+      profitPeriodDirtyValue: 0,
+
+      //окупаемость в месяцах
+      paybackValue: 0,
+
+      //чистая прибыль за период
+      netProfitPeriodValue: 0,
+
+      //Выбранный период
+      periodValue: 1,
+
+      //чистая прибыль 1 сим
+      netProfitOneSimValue: 0,
     }
   },
+  methods:{
+    //получаем период из ползунка
+    getValueSlider(event) {
+      this.periodValue = event;
+    },
 
-  methods: {
-    //чистая прибыль в %  (прибыль / затраты) * 100
-    profitPercentage() {
-      this.RadialbarsChart.series = [Math.ceil((this.profit() / this.expenses()) * 100)];
+    //чистая прибыль 1 сим
+    profitOneSim() {
+      console.log('чистая прибыль 1 сим   '  + (this.averagePriceValue - this.simPrice))
+     return  this.netProfitOneSimValue = this.averagePriceValue - this.simPrice
+    },
+
+    //кол-во сим карт в период || кол-во портов * кол-во замен * 30 дней
+    numberSim() {
+      console.log('кол-во сим карт в месяц   '  + this.selectedReplacement.value * this.selectedNumberPortModem.value * 30 * this.periodValue)
+      return this.numberSimMonthValue = this.selectedReplacement.value * this.selectedNumberPortModem.value * 30 * this.periodValue
+    },
+
+    //стоимость симкарт || кол-во сим * цену за 1 сим
+    costAllSim(){
+      console.log('стоимость симкарт   '  + this.numberSimMonthValue * this.simPrice)
+      return this.costAllSimValue = this.numberSimMonthValue * this.simPrice
+    },
+
+    //прибыль в месяц (грязная) ||  кол-во сим * средний чек по 1 сим
+    profitMonthDirty(){
+      console.log('прибыль в месяц (грязная)   '  + this.numberSimMonthValue * this.averagePriceValue)
+      return this.profitMonthDirtyValue = this.numberSimMonthValue * this.averagePriceValue
+    },
+
+    //прибыль за период (грязная) ||  кол-во сим * средний чек по 1 сим
+    profitPeriodDirty(){
+      console.log('прибыль за период (грязная)   '  + this.numberSimMonthValue * this.averagePriceValue * this.periodValue)
+      return this.profitPeriodDirtyValue = this.numberSimMonthValue * this.averagePriceValue * this.periodValue
+    },
+
+    //затраты (цена модема + цена завсе сим)
+    expenses(){
+      console.log('затраты   '  + (this.selectedNumberPortModem.price + this.costAllSimValue))
+      return this.expensesValue = this.selectedNumberPortModem.price + this.costAllSimValue
+    },
+
+    //прибыль в месяц  || кол-во портов * средний чек 1 сим * 30 дней
+    profitMonth(){
+      console.log('прибыль в месяц   '  + (this.selectedNumberPortModem.value * this.averagePriceValue * 30))
+      return this.profitMonthValue = this.selectedNumberPortModem.value * this.averagePriceValue * 30
+    },
+
+    //окупаемость  || затраты / прибыль
+    payback(){
+      console.log('окупаемость в месяцах   '  + (Math.ceil(this.expensesValue / this.profitMonthValue)))
+      this.paybackValue = Math.ceil(this.expensesValue / this.profitMonthValue)
+      if(this.paybackValue === Infinity){ this.paybackValue = 'нерентабельно' } else if(this.paybackValue < 0) { this.paybackValue = 'нерентабельно' }
+
+      return this.paybackValue
+    },
+
+    //чистая прибыль за период
+    netProfitPeriod(){
+      console.log('чистая прибыль за период   '  + (this.profitMonthValue * this.periodValue - this.expensesValue))
+      return this.netProfitPeriodValue = this.profitMonthValue * this.periodValue - this.expensesValue
+    },
+
+    //чистая прибыль в % для графика  ||  прибыль / 100
+    valuesGraphProfitPercentage(){
+      console.log('чистая прибыль в % для графика   '  + Math.ceil( this.netProfitPeriodValue / this.expensesValue * 100 ))
+      this.RadialbarsChart.series = [Math.ceil( this.netProfitPeriodValue / this.expensesValue * 100)]
       //мах значение должно быть 100. мин 0
       if(this.RadialbarsChart.series > 100) {
         this.RadialbarsChart.series = [100]
@@ -293,269 +359,27 @@ export default {
       return this.RadialbarsChart.series;
     },
 
-    getValueSlider(event) {
-      this.periodValue = event;
-    },
-
-
-
-
-    //кол-во сим карт в месяц
-    numberSim() {
-     return this.numberSimValue = 30 / this.selectedReplacement.value * this.selectedNumberPortModem.value
-    },
-
-    //средняя цену за сутки
-    averagePrice(){
-      const AP = dat.chartData.data[0].values;
-      const AP1 = dat.chartData.data[1].values;
-      const AP2 = dat.chartData.data[2].values;
-      const average = array => array.reduce((a, b) => +a + +b) / array.length;
-      return this.averagePriceValue = Math.ceil(average(AP1));
-    },
-
-    //примерная стоимость всех сим (колличество * цену за 1шт)
-    priceAllSim() {
-      return this.priceAllSimValue = this.numberSimValue * this.simPrice
-    },
-
-    ///чистая прибыль сим (кол-во сим * средний чек)
-    profitOneSim() {
-      this.netProfitOneSimValue = this.numberSimValue * this.averagePriceValue;
-      if(this.netProfitOneSimValue <= 0){ this.netProfitOneSimValue = this.netProfitOneSimValue + "₽ нерентабельно" }
-      return this.netProfitOneSimValue
-    },
-
-    // затраты (цена модема + цена завсе сим)
-    expenses(){
-      return this.expensesValue = this.selectedNumberPortModem.price + this.priceAllSimValue
-    },
-
-    ///прибыль в месяц  кол-во портов * средный чек
-    profit() {
-      return this.profitValue = this.selectedNumberPortModem.value * this.averagePriceValue * 30
-    },
-
-    ///окупаемость (затраты / прибыль и округленные в большую сторону)
-    payback() {
-      this.paybackValue = Math.ceil(this.expenses() / this.profit());
-      if(this.paybackValue === Infinity){ this.paybackValue = 'нерентабельно' } else if(this.paybackValue < 0) { this.paybackValue = 'нерентабельно' }
-
-      return  this.paybackValue
-    },
-
-    ///доход за период ( прибыль * период)
-    profitPeriod() {
-      this.incomePeriodValue = this.profit() * this.periodValue;
-      if(this.incomePeriodValue <= 0) { this.incomePeriodValue = 0 }
-
-      return this.incomePeriodValue
-    },
-
-    /// чистая прибыль за период ( доход за период - цена всех сим )
-    netIncome(){
-      this.netProfitPeriodValue = this.profitPeriod() - this.priceAllSim()
-      if(this.netProfitPeriodValue <= 0){ this.netProfitPeriodValue = 0 }
-
-      return this.netProfitPeriodValue
-    },
-
     allCalculations(){
       this.numberSim();
-      this.profitPercentage();
+      this.costAllSim();
+      this.profitMonthDirty();
+      this.profitPeriodDirty();
       this.profitOneSim();
+      this.expenses();
+      this.profitMonth();
       this.payback();
-      this.profitPeriod();
-      this.netIncome()
-    },
-
-
-  },
-
-  computed:{
-  // изменения языка на графике
-  //   labelChart(){
-  //
-  //     this.RadialbarsChart.chartOptions.labels = ['Чистая прибыль'];
-  //     if(this.language === 'en'){
-  //       this.RadialbarsChart.chartOptions.labels = ['Net profit'];
-  //     }
-  //     console.log(this.RadialbarsChart.chartOptions.labels);
-  //     return this.RadialbarsChart.chartOptions.labels
-  //   }
+      this.netProfitPeriod();
+      this.valuesGraphProfitPercentage()
+    }
   },
   mounted() {
-    // axios.defaults.headers.common['origin'] = 'localhost'
+    //axios.defaults.headers.common['origin'] = 'localhost'
     // axios.get('/api.php?cat=scripts&act=getSmsStats&slice=1440&dateFrom=2022-01-21&dateTo=2022-07-27&country=1&mobileOperator=0')
     //     .then(response => this.listCountries = response.data.data, e => console.log(e));
   }
 }
 </script>
 
-<style  lang="scss">
-@import '../../../assets/scss/style.scss';
+<style scoped>
 
-.lending .calculator {
-  @include adaptiveValue(margin-top, 50, 30);
-  @include adaptiveValue(padding-top, 50, 150);
-  @include adaptiveValue(padding-bottom, 165, 50);
-  @include adaptiveValue(margin-bottom, 65, 30);
-  position: relative;
-  background: url("../../../../public/assets/img/svg/bg-chart2-spa-none.svg") no-repeat center / cover;
-
-  @include maq('tablet') {
-    background: url("../../../../public/assets/img/svg/bg-chart2.svg") no-repeat center / cover;
-  }
-
-  &__form{
-    display: grid;
-    grid-gap: rem(15);
-
-    button.button-g{
-      margin-top: rem(30);
-    }
-  }
-  &__container {
-    display: grid;
-    grid-gap: rem(100);
-
-    @include mq('tablet') {
-      grid-template-columns: 1fr 1fr;
-      grid-gap: rem(60);
-      align-items: center;
-    }
-    @include mq('desktop') {
-      grid-gap: rem(100);
-    }
-  }
-
-  &__title {
-    @include mq('tablet') {
-      grid-column: span 2;
-      transform: translateY(-50px);
-    }
-  }
-
-  &__content {
-    color: $color_1;
-  }
-
-  &__h2 {
-    @include adaptiveValue(font-size, 20, 18);
-    @include adaptiveValue(margin-bottom, 20, 18);
-    font-weight: 700;
-  }
-
-  &__p {
-    margin-bottom: rem(44);
-  }
-
-  &__p-green {
-    color: $color_4;
-    font-weight: 600;
-    @include adaptiveValue(font-size, 14, 14);
-    margin-bottom: rem(10);
-
-    &.mt-15{
-      margin-top: 15px;
-    }
-  }
-
-  &__input{
-    width: 100%;
-    &::placeholder{
-      color: #989898;
-    }
-  }
-
-  &__label{
-    font-size: rem(14);
-    font-style: italic;
-    color: #989898;
-  }
-
-
-  .range__text{
-    margin-right: rem(10);
-    color: $color_4;
-    font-weight: 600;
-  }
-
-  .range{
-    margin-top: rem(30);
-  }
-
-  .chart__title{
-    color: $color_4;
-    @include adaptiveValue(font-size, 20, 20);
-    font-weight: 700;
-    margin-bottom: rem(44);
-    text-align: center;
-    text-transform: uppercase;
-  }
-
-  .chart__list{
-    display: grid;
-    grid-gap: rem(20);
-    li{
-      display: grid;
-      grid-gap: rem(10);
-      grid-template-columns: 15px 1.5fr 1fr;
-      align-items: center;
-    }
-    .point{
-      width: 15px;
-      height: 15px;
-      border-radius: 50%;
-    }
-    span{
-      color: $color_1;
-      &:last-child{
-        margin-left: auto;
-      }
-    }
-
-  }
-
-  .apexcharts-datalabels-group{
-    height: 100px !important;
-    position: relative;
-    display: block;
-
-    #SvgjsText2020{
-      y: 130;
-    }
-  }
-
-  .selectCountry .vs__search::placeholder,
-  .selectCountry .vs__dropdown-toggle,
-  .selectCountry .vs__dropdown-menu {
-    background: $color_1;
-    border: none;
-    color: #394066;
-    text-transform: lowercase;
-    font-variant: small-caps;
-  }
-
-  .selectCountry .vs__clear,
-  .selectCountry .vs__open-indicator {
-    fill: #394066;
-  }
-
-  .selectCountry {
-    .vs__dropdown-toggle {
-      height: rem(56);
-    }
-    .vs__selected{
-      padding-left: rem(20);
-      font-size: 18px;
-      font-weight: 700;
-    }
-  }
-
-  li.hid{
-    height: 0;
-    opacity: 0;
-  }
-}
 </style>

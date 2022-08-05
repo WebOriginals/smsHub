@@ -2,7 +2,7 @@
 import Header from "./components/header/Header.vue";
 import First from "./components/page/main/First.vue";
 import HowItWorks from "./components/page/main/howItWorks.vue";
-import Calculator from "./components/page/main/calculator.vue";
+import Calculator2 from "./components/page/main/calculator2.vue";
 import MainIndicators from "./components/page/main/mainIndicators.vue";
 import ChartMap from "./components/page/main/ChartMap.vue";
 import mainForm from "./components/page/main/mainForm.vue";
@@ -22,7 +22,7 @@ export default {
     mainForm,
     ChartMap,
     MainIndicators,
-    Calculator,
+    Calculator2,
     HowItWorks,
     Header,
     First
@@ -46,7 +46,7 @@ export default {
   main.page.main
     First
     how-it-works
-    calculator(:language="this.len")
+    calculator2(:language="this.len")
     main-indicators
     ChartMap
     main-form

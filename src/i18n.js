@@ -80,10 +80,10 @@ i18next
                         description: 'Indicate the country and cost of the SIM card.\n' +
                             'Then we will do everything for you!\n' +
                             'Change the period and see how the income grows.\n',
-                        simLine1: 'Necessary quantity of SIM cards',
-                        simLine2: 'Net profit of one SIM card',
-                        simLine3: 'Equipment payback',
-                        label: 'Net profit'
+                        simLine1: 'Required number of SIM cards:',
+                        simLine2: 'Net profit of one sim card per month',
+                        simLine3: 'Payback of equipment',
+
                     },
                     ask: {
                         title: '<span>FAQ</span>',
@@ -209,9 +209,8 @@ i18next
                         subTitle: 'Узнай свой доход за пару кликов',
                         description: 'Укажите страну и стоимость сим карты. Дальше мы всё сделаем за Вас Меняй период и наблюдай как растёт доход',
                         simLine1: 'Небходимое кол-во sim-карт:',
-                        simLine2: 'Чистая прибыть одной sim-карты за период:',
+                        simLine2: 'Чистая прибыть одной sim-карты за месяц:',
                         simLine3: 'Точка безубыточности:',
-                        label: 'Чистая прибыль'
 
                     },
                     ask: {
