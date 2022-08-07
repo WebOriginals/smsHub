@@ -318,7 +318,7 @@ export default {
       return this.profitPeriodDirtyValue = this.numberSimMonthValue * this.averagePriceValue * this.periodValue
     },
 
-    //затраты (цена модема + цена завсе сим)
+    //затраты  || цена модема + цена завсе сим)
     expenses(){
       console.log('затраты   '  + (this.selectedNumberPortModem.price + this.costAllSimValue))
       return this.expensesValue = this.selectedNumberPortModem.price + this.costAllSimValue
@@ -339,7 +339,7 @@ export default {
       return this.paybackValue
     },
 
-    //чистая прибыль за период
+    //чистая прибыль за период  || прибыль в мес грязная * период - затрааты
     netProfitPeriod(){
       console.log('чистая прибыль за период   '  + (this.profitMonthValue * this.periodValue - this.expensesValue))
       return this.netProfitPeriodValue = this.profitMonthValue * this.periodValue - this.expensesValue
@@ -380,6 +380,170 @@ export default {
 }
 </script>
 
-<style scoped>
+<style  lang="scss">
+@import '../../../assets/scss/style.scss';
 
+.lending .calculator {
+  @include adaptiveValue(margin-top, 50, 30);
+  @include adaptiveValue(padding-top, 50, 150);
+  @include adaptiveValue(padding-bottom, 165, 50);
+  @include adaptiveValue(margin-bottom, 65, 30);
+  position: relative;
+  background: url("../../../../public/assets/img/svg/bg-chart2-spa-none.svg") no-repeat center / cover;
+
+  @include maq('tablet') {
+    background: url("../../../../public/assets/img/svg/bg-chart2.svg") no-repeat center / cover;
+  }
+
+  &__form{
+    display: grid;
+    grid-gap: rem(15);
+
+    button.button-g{
+      margin-top: rem(30);
+    }
+  }
+  &__container {
+    display: grid;
+    grid-gap: rem(100);
+
+    @include mq('tablet') {
+      grid-template-columns: 1fr 1fr;
+      grid-gap: rem(60);
+      align-items: center;
+    }
+    @include mq('desktop') {
+      grid-gap: rem(100);
+    }
+  }
+
+  &__title {
+    @include mq('tablet') {
+      grid-column: span 2;
+      transform: translateY(-50px);
+    }
+  }
+
+  &__content {
+    color: $color_1;
+  }
+
+  &__h2 {
+    @include adaptiveValue(font-size, 20, 18);
+    @include adaptiveValue(margin-bottom, 20, 18);
+    font-weight: 700;
+  }
+
+  &__p {
+    margin-bottom: rem(44);
+  }
+
+  &__p-green {
+    color: $color_4;
+    font-weight: 600;
+    @include adaptiveValue(font-size, 14, 14);
+    margin-bottom: rem(10);
+
+    &.mt-15{
+      margin-top: 15px;
+    }
+  }
+
+  &__input{
+    width: 100%;
+    &::placeholder{
+      color: #989898;
+    }
+  }
+
+  &__label{
+    font-size: rem(14);
+    font-style: italic;
+    color: #989898;
+  }
+
+
+  .range__text{
+    margin-right: rem(10);
+    color: $color_4;
+    font-weight: 600;
+  }
+
+  .range{
+    margin-top: rem(30);
+  }
+
+  .chart__title{
+    color: $color_4;
+    @include adaptiveValue(font-size, 20, 20);
+    font-weight: 700;
+    margin-bottom: rem(44);
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .chart__list{
+    display: grid;
+    grid-gap: rem(20);
+    li{
+      display: grid;
+      grid-gap: rem(10);
+      grid-template-columns: 15px 1.5fr 1fr;
+      align-items: center;
+    }
+    .point{
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+    }
+    span{
+      color: $color_1;
+      &:last-child{
+        margin-left: auto;
+      }
+    }
+
+  }
+
+  .apexcharts-datalabels-group{
+    height: 100px !important;
+    position: relative;
+    display: block;
+
+    #SvgjsText2020{
+      y: 130;
+    }
+  }
+
+  .selectCountry .vs__search::placeholder,
+  .selectCountry .vs__dropdown-toggle,
+  .selectCountry .vs__dropdown-menu {
+    background: $color_1;
+    border: none;
+    color: #394066;
+    text-transform: lowercase;
+    font-variant: small-caps;
+  }
+
+  .selectCountry .vs__clear,
+  .selectCountry .vs__open-indicator {
+    fill: #394066;
+  }
+
+  .selectCountry {
+    .vs__dropdown-toggle {
+      height: rem(56);
+    }
+    .vs__selected{
+      padding-left: rem(20);
+      font-size: 18px;
+      font-weight: 700;
+    }
+  }
+
+  li.hid{
+    height: 0;
+    opacity: 0;
+  }
+}
 </style>
